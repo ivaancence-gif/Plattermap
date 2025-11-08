@@ -1,3 +1,5 @@
+export type DietaryTag = "Vegetarian" | "Vegan" | "Gluten-Free" | "Dairy-Free" | "Keto" | "Paleo";
+
 export interface Recipe {
   id: string;
   title: string;
@@ -16,7 +18,11 @@ export interface Recipe {
     fiber: string;
   };
   description: string;
+  dietaryTags: DietaryTag[];
+  cuisine?: string;
 }
+
+import { internationalRecipes } from "./internationalRecipes";
 
 export const recipes: Recipe[] = [
   // MEALS
@@ -24,11 +30,13 @@ export const recipes: Recipe[] = [
     id: "1",
     title: "Mediterranean Pasta Bowl",
     category: "Meals",
+    cuisine: "Italian",
     image: "/placeholder.svg",
     cookTime: "25 min",
     servings: 4,
     difficulty: "Easy",
     description: "A fresh and flavorful pasta dish with cherry tomatoes, basil, and garlic.",
+    dietaryTags: ["Vegetarian"],
     ingredients: [
       "400g pasta of choice",
       "2 cups cherry tomatoes, halved",
@@ -63,11 +71,13 @@ export const recipes: Recipe[] = [
     id: "7",
     title: "Beef Tacos",
     category: "Meals",
+    cuisine: "Mexican",
     image: "/placeholder.svg",
     cookTime: "30 min",
     servings: 6,
     difficulty: "Easy",
     description: "Classic Mexican street tacos with seasoned beef and fresh toppings.",
+    dietaryTags: ["Gluten-Free"],
     ingredients: ["1 lb ground beef", "Taco seasoning", "12 corn tortillas", "Lettuce, tomatoes, cheese", "Sour cream", "Salsa", "Lime wedges"],
     instructions: [
       "Brown ground beef in a large skillet over medium-high heat.",
@@ -83,11 +93,13 @@ export const recipes: Recipe[] = [
     id: "8",
     title: "Chicken Stir Fry",
     category: "Meals",
+    cuisine: "Asian",
     image: "/placeholder.svg",
     cookTime: "20 min",
     servings: 4,
     difficulty: "Easy",
     description: "Quick and healthy Asian-inspired chicken with colorful vegetables.",
+    dietaryTags: ["Gluten-Free"],
     ingredients: ["500g chicken breast, sliced", "Mixed vegetables (broccoli, peppers, carrots)", "Soy sauce", "Ginger, garlic", "Sesame oil", "Rice for serving"],
     instructions: [
       "Heat sesame oil in a wok or large pan over high heat.",
@@ -103,11 +115,13 @@ export const recipes: Recipe[] = [
     id: "9",
     title: "Margherita Pizza",
     category: "Meals",
+    cuisine: "Italian",
     image: "/placeholder.svg",
     cookTime: "45 min",
     servings: 4,
     difficulty: "Medium",
     description: "Classic Italian pizza with fresh mozzarella, tomatoes, and basil.",
+    dietaryTags: ["Vegetarian"],
     ingredients: ["Pizza dough", "San Marzano tomatoes", "Fresh mozzarella", "Fresh basil", "Olive oil", "Salt"],
     instructions: [
       "Preheat oven to 475°F with pizza stone if available.",
@@ -124,11 +138,13 @@ export const recipes: Recipe[] = [
     id: "10",
     title: "Salmon Teriyaki",
     category: "Meals",
+    cuisine: "Japanese",
     image: "/placeholder.svg",
     cookTime: "25 min",
     servings: 4,
     difficulty: "Easy",
     description: "Glazed salmon with sweet and savory teriyaki sauce.",
+    dietaryTags: ["Gluten-Free"],
     ingredients: ["4 salmon fillets", "Teriyaki sauce", "Honey", "Garlic", "Sesame seeds", "Green onions"],
     instructions: [
       "Mix teriyaki sauce with honey and minced garlic.",
@@ -144,11 +160,13 @@ export const recipes: Recipe[] = [
     id: "11",
     title: "Lamb Curry",
     category: "Meals",
+    cuisine: "Indian",
     image: "/placeholder.svg",
     cookTime: "90 min",
     servings: 6,
     difficulty: "Hard",
     description: "Rich Indian curry with tender lamb in aromatic spices.",
+    dietaryTags: ["Gluten-Free"],
     ingredients: ["1kg lamb shoulder, cubed", "Curry powder", "Coconut milk", "Tomatoes", "Onions, ginger, garlic", "Cilantro"],
     instructions: [
       "Brown lamb pieces in a large pot.",
@@ -164,11 +182,13 @@ export const recipes: Recipe[] = [
     id: "12",
     title: "Pad Thai",
     category: "Meals",
+    cuisine: "Thai",
     image: "/placeholder.svg",
     cookTime: "30 min",
     servings: 4,
     difficulty: "Medium",
     description: "Authentic Thai stir-fried noodles with shrimp and peanuts.",
+    dietaryTags: ["Gluten-Free"],
     ingredients: ["Rice noodles", "Shrimp", "Eggs", "Bean sprouts", "Peanuts", "Tamarind paste", "Fish sauce", "Lime"],
     instructions: [
       "Soak rice noodles in warm water for 30 minutes.",
@@ -184,11 +204,13 @@ export const recipes: Recipe[] = [
     id: "13",
     title: "Lasagna",
     category: "Meals",
+    cuisine: "Italian",
     image: "/placeholder.svg",
     cookTime: "90 min",
     servings: 8,
     difficulty: "Medium",
     description: "Classic Italian layered pasta with rich meat sauce and cheese.",
+    dietaryTags: [],
     ingredients: ["Lasagna noodles", "Ground beef", "Ricotta cheese", "Mozzarella", "Parmesan", "Marinara sauce", "Italian herbs"],
     instructions: [
       "Brown beef with onions and garlic, add marinara.",
@@ -205,11 +227,13 @@ export const recipes: Recipe[] = [
     id: "14",
     title: "BBQ Ribs",
     category: "Meals",
+    cuisine: "American",
     image: "/placeholder.svg",
     cookTime: "180 min",
     servings: 4,
     difficulty: "Hard",
     description: "Slow-cooked pork ribs with smoky BBQ glaze.",
+    dietaryTags: ["Gluten-Free"],
     ingredients: ["2 racks pork ribs", "BBQ rub", "BBQ sauce", "Apple cider vinegar", "Brown sugar"],
     instructions: [
       "Remove membrane from ribs and apply dry rub.",
@@ -226,11 +250,13 @@ export const recipes: Recipe[] = [
     id: "15",
     title: "Sushi Rolls",
     category: "Meals",
+    cuisine: "Japanese",
     image: "/placeholder.svg",
     cookTime: "60 min",
     servings: 4,
     difficulty: "Hard",
     description: "Homemade sushi with fresh fish and vegetables.",
+    dietaryTags: ["Gluten-Free"],
     ingredients: ["Sushi rice", "Nori sheets", "Fresh salmon or tuna", "Cucumber", "Avocado", "Rice vinegar", "Soy sauce", "Wasabi"],
     instructions: [
       "Cook sushi rice and season with rice vinegar.",
@@ -254,6 +280,7 @@ export const recipes: Recipe[] = [
     servings: 2,
     difficulty: "Easy",
     description: "Crisp mixed greens with colorful vegetables and a tangy vinaigrette.",
+    dietaryTags: ["Vegetarian", "Vegan", "Gluten-Free"],
     ingredients: [
       "4 cups mixed salad greens",
       "1 cucumber, sliced",
@@ -291,6 +318,7 @@ export const recipes: Recipe[] = [
     servings: 4,
     difficulty: "Easy",
     description: "Classic Caesar with crispy romaine, croutons, and creamy dressing.",
+    dietaryTags: ["Vegetarian"],
     ingredients: ["Romaine lettuce", "Parmesan cheese", "Croutons", "Caesar dressing", "Lemon", "Black pepper"],
     instructions: [
       "Tear romaine into bite-sized pieces.",
@@ -311,6 +339,7 @@ export const recipes: Recipe[] = [
     servings: 4,
     difficulty: "Easy",
     description: "Mediterranean salad with feta, olives, and fresh vegetables.",
+    dietaryTags: ["Vegetarian", "Gluten-Free"],
     ingredients: ["Cucumbers", "Tomatoes", "Red onion", "Feta cheese", "Kalamata olives", "Olive oil", "Oregano", "Lemon juice"],
     instructions: [
       "Chop cucumbers, tomatoes, and onion into chunks.",
@@ -331,6 +360,7 @@ export const recipes: Recipe[] = [
     servings: 2,
     difficulty: "Easy",
     description: "Simple Italian salad with tomatoes, mozzarella, and basil.",
+    dietaryTags: ["Vegetarian", "Gluten-Free"],
     ingredients: ["Fresh mozzarella", "Ripe tomatoes", "Fresh basil", "Extra virgin olive oil", "Balsamic glaze", "Sea salt"],
     instructions: [
       "Slice tomatoes and mozzarella into 1/4 inch rounds.",
@@ -353,6 +383,7 @@ export const recipes: Recipe[] = [
     servings: 12,
     difficulty: "Medium",
     description: "Rich, moist chocolate cake with creamy chocolate ganache frosting.",
+    dietaryTags: ["Vegetarian"],
     ingredients: [
       "2 cups all-purpose flour",
       "2 cups sugar",
@@ -397,6 +428,7 @@ export const recipes: Recipe[] = [
     servings: 8,
     difficulty: "Medium",
     description: "Classic Italian coffee-flavored dessert with mascarpone cream.",
+    dietaryTags: ["Vegetarian"],
     ingredients: ["Ladyfinger cookies", "Mascarpone cheese", "Eggs", "Sugar", "Strong espresso", "Cocoa powder", "Coffee liqueur"],
     instructions: [
       "Whip egg yolks with sugar until thick.",
@@ -419,6 +451,7 @@ export const recipes: Recipe[] = [
     servings: 8,
     difficulty: "Medium",
     description: "All-American apple pie with flaky crust and cinnamon filling.",
+    dietaryTags: ["Vegetarian"],
     ingredients: ["Pie crust (2)", "6 apples", "Sugar", "Cinnamon", "Nutmeg", "Butter", "Lemon juice", "Flour"],
     instructions: [
       "Preheat oven to 425°F.",
@@ -441,6 +474,7 @@ export const recipes: Recipe[] = [
     servings: 6,
     difficulty: "Hard",
     description: "French custard dessert with caramelized sugar topping.",
+    dietaryTags: ["Vegetarian", "Gluten-Free"],
     ingredients: ["Heavy cream", "Egg yolks", "Sugar", "Vanilla bean", "Extra sugar for topping"],
     instructions: [
       "Heat cream with vanilla bean until just simmering.",
@@ -462,6 +496,7 @@ export const recipes: Recipe[] = [
     servings: 12,
     difficulty: "Medium",
     description: "Creamy New York style cheesecake with graham cracker crust.",
+    dietaryTags: ["Vegetarian"],
     ingredients: ["Cream cheese", "Sugar", "Eggs", "Sour cream", "Vanilla", "Graham crackers", "Butter"],
     instructions: [
       "Make crust by mixing crushed graham crackers with melted butter.",
@@ -485,6 +520,7 @@ export const recipes: Recipe[] = [
     servings: 2,
     difficulty: "Easy",
     description: "Refreshing and creamy smoothie packed with tropical flavors.",
+    dietaryTags: ["Vegetarian", "Gluten-Free"],
     ingredients: [
       "2 cups frozen mango chunks",
       "1 banana",
@@ -521,6 +557,7 @@ export const recipes: Recipe[] = [
     servings: 2,
     difficulty: "Easy",
     description: "Healthy green smoothie packed with nutrients.",
+    dietaryTags: ["Vegan", "Gluten-Free"],
     ingredients: ["Spinach", "Kale", "Banana", "Apple", "Ginger", "Lemon juice", "Water or coconut water"],
     instructions: [
       "Add all greens to blender first.",
@@ -541,6 +578,7 @@ export const recipes: Recipe[] = [
     servings: 1,
     difficulty: "Easy",
     description: "Refreshing cold coffee with milk and ice.",
+    dietaryTags: ["Vegetarian", "Gluten-Free"],
     ingredients: ["Strong brewed coffee, chilled", "Ice cubes", "Milk or cream", "Sugar or sweetener", "Vanilla extract (optional)"],
     instructions: [
       "Fill glass with ice cubes.",
@@ -560,6 +598,7 @@ export const recipes: Recipe[] = [
     servings: 6,
     difficulty: "Easy",
     description: "Classic homemade lemonade with fresh squeezed lemons.",
+    dietaryTags: ["Vegan", "Gluten-Free"],
     ingredients: ["8 lemons", "1 cup sugar", "6 cups cold water", "Ice", "Mint for garnish"],
     instructions: [
       "Juice all lemons to get about 1.5 cups of juice.",
@@ -580,6 +619,7 @@ export const recipes: Recipe[] = [
     servings: 2,
     difficulty: "Easy",
     description: "Rich and creamy hot chocolate with marshmallows.",
+    dietaryTags: ["Vegetarian", "Gluten-Free"],
     ingredients: ["Milk", "Dark chocolate", "Cocoa powder", "Sugar", "Vanilla", "Marshmallows", "Whipped cream"],
     instructions: [
       "Heat milk in saucepan over medium heat.",
@@ -602,6 +642,7 @@ export const recipes: Recipe[] = [
     servings: 6,
     difficulty: "Easy",
     description: "Comforting vegetable soup loaded with nutritious ingredients.",
+    dietaryTags: ["Vegan", "Gluten-Free"],
     ingredients: [
       "2 tbsp olive oil",
       "1 onion, diced",
@@ -647,6 +688,7 @@ export const recipes: Recipe[] = [
     servings: 6,
     difficulty: "Easy",
     description: "Classic comfort soup with tender chicken and noodles.",
+    dietaryTags: [],
     ingredients: ["Chicken breast", "Egg noodles", "Carrots", "Celery", "Onion", "Chicken broth", "Bay leaf", "Thyme"],
     instructions: [
       "Bring chicken broth to boil with chicken breast.",
@@ -669,6 +711,7 @@ export const recipes: Recipe[] = [
     servings: 4,
     difficulty: "Medium",
     description: "Rich caramelized onion soup with cheese-topped croutons.",
+    dietaryTags: ["Vegetarian"],
     ingredients: ["5 large onions", "Butter", "Beef broth", "White wine", "Thyme", "French bread", "Gruyere cheese"],
     instructions: [
       "Thinly slice onions.",
@@ -685,11 +728,13 @@ export const recipes: Recipe[] = [
     id: "29",
     title: "Tom Yum Soup",
     category: "Soups",
+    cuisine: "Thai",
     image: "/placeholder.svg",
     cookTime: "25 min",
     servings: 4,
     difficulty: "Medium",
     description: "Spicy and sour Thai soup with shrimp and lemongrass.",
+    dietaryTags: ["Gluten-Free"],
     ingredients: ["Shrimp", "Lemongrass", "Galangal", "Lime leaves", "Thai chilies", "Fish sauce", "Lime juice", "Mushrooms", "Tomatoes"],
     instructions: [
       "Bring broth to boil with lemongrass, galangal, and lime leaves.",
@@ -705,11 +750,13 @@ export const recipes: Recipe[] = [
     id: "30",
     title: "Minestrone",
     category: "Soups",
+    cuisine: "Italian",
     image: "/placeholder.svg",
     cookTime: "50 min",
     servings: 8,
     difficulty: "Easy",
     description: "Italian vegetable soup with beans and pasta.",
+    dietaryTags: ["Vegetarian"],
     ingredients: ["Onion, carrots, celery", "Tomatoes", "Kidney beans", "Green beans", "Zucchini", "Small pasta", "Vegetable broth", "Italian herbs", "Parmesan"],
     instructions: [
       "Sauté onion, carrots, and celery in olive oil.",
@@ -734,6 +781,7 @@ export const recipes: Recipe[] = [
     servings: 2,
     difficulty: "Easy",
     description: "Trendy and nutritious breakfast with perfectly seasoned avocado.",
+    dietaryTags: ["Vegetarian"],
     ingredients: [
       "4 slices whole grain bread",
       "2 ripe avocados",
@@ -772,6 +820,7 @@ export const recipes: Recipe[] = [
     servings: 4,
     difficulty: "Easy",
     description: "Fluffy American-style pancakes with maple syrup.",
+    dietaryTags: ["Vegetarian"],
     ingredients: ["Flour", "Milk", "Eggs", "Baking powder", "Sugar", "Butter", "Vanilla", "Maple syrup", "Berries"],
     instructions: [
       "Mix dry ingredients in a bowl.",
@@ -793,6 +842,7 @@ export const recipes: Recipe[] = [
     servings: 2,
     difficulty: "Hard",
     description: "Classic brunch dish with poached eggs and hollandaise sauce.",
+    dietaryTags: [],
     ingredients: ["English muffins", "Eggs", "Canadian bacon", "Butter", "Lemon juice", "Cayenne", "White vinegar"],
     instructions: [
       "Make hollandaise: whisk egg yolks with lemon over double boiler.",
@@ -814,6 +864,7 @@ export const recipes: Recipe[] = [
     servings: 2,
     difficulty: "Easy",
     description: "Nutritious Brazilian breakfast bowl with frozen acai and toppings.",
+    dietaryTags: ["Vegan", "Gluten-Free"],
     ingredients: ["Acai packets", "Banana", "Berries", "Granola", "Honey", "Coconut flakes", "Almond butter"],
     instructions: [
       "Blend frozen acai with banana and a splash of juice.",
@@ -834,6 +885,7 @@ export const recipes: Recipe[] = [
     servings: 4,
     difficulty: "Easy",
     description: "Classic breakfast with cinnamon-vanilla battered bread.",
+    dietaryTags: ["Vegetarian"],
     ingredients: ["Brioche or thick bread", "Eggs", "Milk", "Cinnamon", "Vanilla", "Butter", "Powdered sugar", "Maple syrup"],
     instructions: [
       "Whisk eggs, milk, cinnamon, and vanilla.",
@@ -843,7 +895,9 @@ export const recipes: Recipe[] = [
       "Serve with maple syrup and berries."
     ],
     nutrition: { calories: 360, protein: "12g", carbs: "48g", fat: "14g", fiber: "2g" }
-  }
+  },
+
+  ...internationalRecipes
 ];
 
 export const categories = [

@@ -37,12 +37,26 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
               {recipe.difficulty}
             </Badge>
           </div>
+          {recipe.cuisine && (
+            <p className="text-xs text-muted-foreground mb-2">
+              {recipe.cuisine} Cuisine
+            </p>
+          )}
           <h3 className="font-semibold text-lg mb-2 text-foreground line-clamp-1">
             {recipe.title}
           </h3>
           <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
             {recipe.description}
           </p>
+          {recipe.dietaryTags && recipe.dietaryTags.length > 0 && (
+            <div className="flex flex-wrap gap-1 mb-3">
+              {recipe.dietaryTags.slice(0, 3).map((tag) => (
+                <Badge key={tag} variant="outline" className="text-xs border-sage text-sage">
+                  {tag}
+                </Badge>
+              ))}
+            </div>
+          )}
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
             <div className="flex items-center gap-1">
               <Clock className="w-4 h-4" />

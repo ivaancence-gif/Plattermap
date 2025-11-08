@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { SearchBar } from "@/components/SearchBar";
 import { RecipeCard } from "@/components/RecipeCard";
-import { recipes, categories } from "@/data/recipes";
+import { DietaryFilter } from "@/components/DietaryFilter";
+import { recipes, categories, DietaryTag } from "@/data/recipes";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
@@ -12,6 +13,7 @@ const Recipes = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(
     searchParams.get("category")
   );
+  const [selectedDietaryTags, setSelectedDietaryTags] = useState<DietaryTag[]>([]);
 
   useEffect(() => {
     const category = searchParams.get("category");
@@ -25,7 +27,9 @@ const Recipes = () => {
     const matchesCategory = selectedCategory
       ? recipe.category === selectedCategory
       : true;
-    return matchesSearch && matchesCategory;
+    const matchesDietary = selectedDietaryTags.length === 0 ||
+      selectedDietaryTags.every(tag => recipe.dietaryTags.includes(tag));
+    return matchesSearch && matchesCategory && matchesDietary;
   });
 
   const handleCategoryClick = (categoryName: string) => {
@@ -36,6 +40,12 @@ const Recipes = () => {
       setSelectedCategory(categoryName);
       setSearchParams({ category: categoryName });
     }
+  };
+
+  const handleToggleDietaryTag = (tag: DietaryTag) => {
+    setSelectedDietaryTags(prev =>
+      prev.includes(tag) ? prev.filter(t => t !== tag) : [...prev, tag]
+    );
   };
 
   return (
@@ -56,6 +66,14 @@ const Recipes = () => {
       </section>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Dietary Filter */}
+        <div className="mb-8">
+          <DietaryFilter 
+            selectedTags={selectedDietaryTags}
+            onToggleTag={handleToggleDietaryTag}
+          />
+        </div>
+
         {/* Category Filter */}
         <div className="mb-8">
           <h3 className="text-sm font-semibold text-muted-foreground mb-3">
