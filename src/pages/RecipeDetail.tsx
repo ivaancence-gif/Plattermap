@@ -1,5 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { recipes } from "@/data/recipes";
+import { internationalRecipes } from "@/data/internationalRecipes";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,7 +10,8 @@ import { ArrowLeft, Clock, Users, ChefHat } from "lucide-react";
 const RecipeDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const recipe = recipes.find((r) => r.id === id);
+  const allRecipes = [...recipes, ...internationalRecipes];
+  const recipe = allRecipes.find((r) => r.id === id);
 
   if (!recipe) {
     return (
