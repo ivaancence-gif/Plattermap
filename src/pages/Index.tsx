@@ -7,6 +7,12 @@ import { recipes, categories } from "@/data/recipes";
 import { Button } from "@/components/ui/button";
 import { UtensilsCrossed, Cake, Coffee, Soup, Salad, Sun } from "lucide-react";
 import heroImage from "@/assets/hero-food.jpg";
+import categoryMeals from "@/assets/category-meals.jpg";
+import categorySalads from "@/assets/category-salads.jpg";
+import categoryDesserts from "@/assets/category-desserts.jpg";
+import categoryDrinks from "@/assets/category-drinks.jpg";
+import categorySoups from "@/assets/category-soups.jpg";
+import categoryBreakfast from "@/assets/category-breakfast.jpg";
 
 const categoryIcons = {
   "Meals": UtensilsCrossed,
@@ -15,6 +21,15 @@ const categoryIcons = {
   "Soups": Soup,
   "Salads": Salad,
   "Breakfast": Sun
+};
+
+const categoryImages = {
+  "Meals": categoryMeals,
+  "Salads": categorySalads,
+  "Desserts": categoryDesserts,
+  "Drinks": categoryDrinks,
+  "Soups": categorySoups,
+  "Breakfast": categoryBreakfast
 };
 
 const Index = () => {
@@ -70,13 +85,14 @@ const Index = () => {
       {/* Categories Section */}
       <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-foreground mb-8">Browse by Category</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {categories.map((category) => (
             <CategoryCard
               key={category.name}
               name={category.name}
               count={category.count}
               icon={categoryIcons[category.name as keyof typeof categoryIcons]}
+              image={categoryImages[category.name as keyof typeof categoryImages]}
               onClick={() => handleCategoryClick(category.name)}
             />
           ))}
