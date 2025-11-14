@@ -8,10 +8,10 @@ import { internationalRecipes } from "@/data/internationalRecipes";
 import { RecipeCard } from "@/components/RecipeCard";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Heart, ArrowLeft, Crown, Sparkles } from "lucide-react";
+import { Heart, ArrowLeft, Crown, Sparkles, User, LogOut } from "lucide-react";
 
 const Favorites = () => {
-  const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading, signOut } = useAuth();
   const { favorites, loading: favLoading } = useFavorites();
   const { subscribed, getTierName } = useSubscription();
   const navigate = useNavigate();
@@ -62,6 +62,26 @@ const Favorites = () => {
                 <Crown className="w-4 h-4" />
                 Pricing
               </Button>
+              {user && (
+                <>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate("/profile")}
+                    className="gap-2"
+                  >
+                    <User className="w-4 h-4" />
+                    Profile
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={signOut}
+                    className="gap-2"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    Sign Out
+                  </Button>
+                </>
+              )}
             </div>
             <div className="flex items-center gap-3">
               <Heart className="w-6 h-6 text-primary fill-primary" />

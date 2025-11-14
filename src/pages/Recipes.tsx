@@ -96,6 +96,14 @@ const Recipes = () => {
                 <>
                   <Button
                     variant="ghost"
+                    onClick={() => navigate("/profile")}
+                    className="gap-2"
+                  >
+                    <User className="w-4 h-4" />
+                    Profile
+                  </Button>
+                  <Button
+                    variant="ghost"
                     onClick={() => navigate("/favorites")}
                     className="gap-2"
                   >
