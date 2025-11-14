@@ -12,6 +12,7 @@ import Auth from "./pages/Auth";
 import Favorites from "./pages/Favorites";
 import Pricing from "./pages/Pricing";
 import Profile from "./pages/Profile";
+import MealPlanner from "./pages/MealPlanner";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/meal-planner" element={<MealPlanner />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
             </Routes>
