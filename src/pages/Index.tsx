@@ -6,7 +6,7 @@ import { RecipeCard } from "@/components/RecipeCard";
 import { recipes, categories } from "@/data/recipes";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { UtensilsCrossed, Cake, Coffee, Soup, Salad, Sun, Heart, User, LogOut, Crown, Sparkles, CalendarDays } from "lucide-react";
+import { UtensilsCrossed, Cake, Coffee, Soup, Salad, Sun, Heart, User, LogOut, Crown, Sparkles, CalendarDays, ShoppingCart } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useSubscription, TIERS } from "@/hooks/useSubscription";
 import heroImage from "@/assets/hero-food.jpg";
@@ -89,14 +89,24 @@ const Index = () => {
               {user ? (
                 <>
                   {isProUser && (
-                    <Button
-                      variant="ghost"
-                      onClick={() => navigate("/meal-planner")}
-                      className="gap-2"
-                    >
-                      <CalendarDays className="w-4 h-4" />
-                      Meal Planner
-                    </Button>
+                    <>
+                      <Button
+                        variant="ghost"
+                        onClick={() => navigate("/meal-planner")}
+                        className="gap-2"
+                      >
+                        <CalendarDays className="w-4 h-4" />
+                        Meal Planner
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        onClick={() => navigate("/shopping-list")}
+                        className="gap-2"
+                      >
+                        <ShoppingCart className="w-4 h-4" />
+                        Shopping List
+                      </Button>
+                    </>
                   )}
                   <Button
                     variant="ghost"
