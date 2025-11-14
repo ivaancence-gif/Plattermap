@@ -6,16 +6,18 @@ import { DietaryFilter } from "@/components/DietaryFilter";
 import { recipes, categories, DietaryTag } from "@/data/recipes";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Heart, User, LogOut, Crown, Sparkles } from "lucide-react";
+import { Heart, User, LogOut, Crown, Sparkles, CalendarDays } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import { useSubscription } from "@/hooks/useSubscription";
+import { useSubscription, TIERS } from "@/hooks/useSubscription";
 
 const Recipes = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
-  const { subscribed, getTierName } = useSubscription();
+  const { subscribed, getTierName, productId } = useSubscription();
   const [searchQuery, setSearchQuery] = useState("");
+
+  const isProUser = subscribed && productId === TIERS.pro.product_id;
   const [selectedCategory, setSelectedCategory] = useState<string | null>(
     searchParams.get("category")
   );
@@ -94,6 +96,16 @@ const Recipes = () => {
               </Button>
               {user ? (
                 <>
+                  {isProUser && (
+                    <Button
+                      variant="ghost"
+                      onClick={() => navigate("/meal-planner")}
+                      className="gap-2"
+                    >
+                      <CalendarDays className="w-4 h-4" />
+                      Meal Planner
+                    </Button>
+                  )}
                   <Button
                     variant="ghost"
                     onClick={() => navigate("/profile")}

@@ -6,9 +6,9 @@ import { RecipeCard } from "@/components/RecipeCard";
 import { recipes, categories } from "@/data/recipes";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { UtensilsCrossed, Cake, Coffee, Soup, Salad, Sun, Heart, User, LogOut, Crown, Sparkles } from "lucide-react";
+import { UtensilsCrossed, Cake, Coffee, Soup, Salad, Sun, Heart, User, LogOut, Crown, Sparkles, CalendarDays } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import { useSubscription } from "@/hooks/useSubscription";
+import { useSubscription, TIERS } from "@/hooks/useSubscription";
 import heroImage from "@/assets/hero-food.jpg";
 import categoryMeals from "@/assets/category-meals.jpg";
 import categorySalads from "@/assets/category-salads.jpg";
@@ -39,7 +39,9 @@ const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
-  const { subscribed, getTierName } = useSubscription();
+  const { subscribed, getTierName, productId } = useSubscription();
+
+  const isProUser = subscribed && productId === TIERS.pro.product_id;
 
   const filteredRecipes = recipes.filter(recipe =>
     recipe.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -86,6 +88,16 @@ const Index = () => {
               </Button>
               {user ? (
                 <>
+                  {isProUser && (
+                    <Button
+                      variant="ghost"
+                      onClick={() => navigate("/meal-planner")}
+                      className="gap-2"
+                    >
+                      <CalendarDays className="w-4 h-4" />
+                      Meal Planner
+                    </Button>
+                  )}
                   <Button
                     variant="ghost"
                     onClick={() => navigate("/profile")}

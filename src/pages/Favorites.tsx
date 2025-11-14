@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useFavorites } from "@/hooks/useFavorites";
-import { useSubscription } from "@/hooks/useSubscription";
+import { useSubscription, TIERS } from "@/hooks/useSubscription";
 import { recipes } from "@/data/recipes";
 import { internationalRecipes } from "@/data/internationalRecipes";
 import { RecipeCard } from "@/components/RecipeCard";
@@ -13,8 +13,14 @@ import { Heart, ArrowLeft, Crown, Sparkles, User, LogOut } from "lucide-react";
 const Favorites = () => {
   const { user, loading: authLoading, signOut } = useAuth();
   const { favorites, loading: favLoading } = useFavorites();
-  const { subscribed, getTierName } = useSubscription();
+  const { subscribed, getTierName, productId } = useSubscription();
   const navigate = useNavigate();
+
+  const isPremiumUser = subscribed && (
+    productId === TIERS.premium.product_id || 
+    productId === TIERS.pro.product_id
+  );
+
   const [favoriteRecipes, setFavoriteRecipes] = useState<typeof recipes>([]);
 
   useEffect(() => {
@@ -35,6 +41,45 @@ const Favorites = () => {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <p className="text-muted-foreground">Loading...</p>
+      </div>
+    );
+  }
+
+  if (!isPremiumUser) {
+    return (
+      <div className="min-h-screen bg-background">
+        <header className="bg-card border-b border-border sticky top-0 z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <Button
+              variant="ghost"
+              onClick={() => navigate("/")}
+              className="gap-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back
+            </Button>
+          </div>
+        </header>
+
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="max-w-2xl mx-auto">
+            <div className="text-center py-12 space-y-6">
+              <div className="w-20 h-20 bg-muted rounded-full flex items-center justify-center mx-auto">
+                <Heart className="w-10 h-10 text-muted-foreground" />
+              </div>
+              <div>
+                <h2 className="text-3xl font-bold mb-3">Premium Feature</h2>
+                <p className="text-xl text-muted-foreground mb-6">
+                  Upgrade to Premium to save and organize your favorite recipes
+                </p>
+              </div>
+              <Button size="lg" onClick={() => navigate("/pricing")}>
+                <Crown className="w-5 h-5 mr-2" />
+                Upgrade to Premium
+              </Button>
+            </div>
+          </div>
+        </main>
       </div>
     );
   }

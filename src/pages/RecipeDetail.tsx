@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, Clock, Users, ChefHat } from "lucide-react";
 import { FavoriteButton } from "@/components/FavoriteButton";
+import { RecipeNotes } from "@/components/RecipeNotes";
+import { AddToMealPlan } from "@/components/AddToMealPlan";
 
 const RecipeDetail = () => {
   const { id } = useParams();
@@ -54,7 +56,10 @@ const RecipeDetail = () => {
                 <Badge variant="secondary">{recipe.category}</Badge>
                 <Badge variant="outline">{recipe.difficulty}</Badge>
               </div>
-              <FavoriteButton recipeId={recipe.id} />
+              <div className="flex gap-2">
+                <AddToMealPlan recipeId={recipe.id} recipeName={recipe.title} />
+                <FavoriteButton recipeId={recipe.id} />
+              </div>
             </div>
             <h1 className="text-4xl font-bold text-foreground mb-4">{recipe.title}</h1>
             <p className="text-lg text-muted-foreground mb-6">{recipe.description}</p>
@@ -158,6 +163,9 @@ const RecipeDetail = () => {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Recipe Notes */}
+            <RecipeNotes recipeId={recipe.id} />
           </div>
         </div>
       </div>
