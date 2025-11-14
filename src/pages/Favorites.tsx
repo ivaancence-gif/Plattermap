@@ -2,15 +2,18 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useFavorites } from "@/hooks/useFavorites";
+import { useSubscription } from "@/hooks/useSubscription";
 import { recipes } from "@/data/recipes";
 import { internationalRecipes } from "@/data/internationalRecipes";
 import { RecipeCard } from "@/components/RecipeCard";
 import { Button } from "@/components/ui/button";
-import { Heart, ArrowLeft } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Heart, ArrowLeft, Crown, Sparkles } from "lucide-react";
 
 const Favorites = () => {
   const { user, loading: authLoading } = useAuth();
   const { favorites, loading: favLoading } = useFavorites();
+  const { subscribed, getTierName } = useSubscription();
   const navigate = useNavigate();
   const [favoriteRecipes, setFavoriteRecipes] = useState<typeof recipes>([]);
 
@@ -50,9 +53,24 @@ const Favorites = () => {
               <ArrowLeft className="w-4 h-4" />
               Back
             </Button>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <Heart className="w-6 h-6 text-primary fill-primary" />
               <h1 className="text-2xl font-bold text-foreground">My Favorites</h1>
+              {subscribed && getTierName() && (
+                <Badge 
+                  variant="secondary" 
+                  className="gap-1 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20"
+                  onClick={() => navigate("/pricing")}
+                  style={{ cursor: "pointer" }}
+                >
+                  {getTierName() === "Premium" ? (
+                    <Crown className="w-3 h-3" />
+                  ) : (
+                    <Sparkles className="w-3 h-3" />
+                  )}
+                  {getTierName()}
+                </Badge>
+              )}
             </div>
             <div className="w-20" /> {/* Spacer for centering */}
           </div>
