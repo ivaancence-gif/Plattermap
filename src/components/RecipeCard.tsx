@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Clock, Users } from "lucide-react";
 import { Link } from "react-router-dom";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 interface RecipeCardProps {
   recipe: Recipe;
@@ -21,21 +22,24 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
         </div>
         <CardContent className="p-4">
           <div className="flex items-center justify-between mb-2">
-            <Badge variant="secondary" className="bg-secondary/50">
-              {recipe.category}
-            </Badge>
-            <Badge 
-              variant="outline" 
-              className={
-                recipe.difficulty === "Easy" 
-                  ? "border-secondary text-secondary" 
-                  : recipe.difficulty === "Medium"
-                  ? "border-primary text-primary"
-                  : "border-destructive text-destructive"
-              }
-            >
-              {recipe.difficulty}
-            </Badge>
+            <div className="flex gap-2">
+              <Badge variant="secondary" className="bg-secondary/50">
+                {recipe.category}
+              </Badge>
+              <Badge 
+                variant="outline" 
+                className={
+                  recipe.difficulty === "Easy" 
+                    ? "border-secondary text-secondary" 
+                    : recipe.difficulty === "Medium"
+                    ? "border-primary text-primary"
+                    : "border-destructive text-destructive"
+                }
+              >
+                {recipe.difficulty}
+              </Badge>
+            </div>
+            <FavoriteButton recipeId={recipe.id} size="sm" />
           </div>
           {recipe.cuisine && (
             <p className="text-xs text-muted-foreground mb-2">

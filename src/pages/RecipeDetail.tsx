@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ArrowLeft, Clock, Users, ChefHat } from "lucide-react";
+import { FavoriteButton } from "@/components/FavoriteButton";
 
 const RecipeDetail = () => {
   const { id } = useParams();
@@ -48,9 +49,12 @@ const RecipeDetail = () => {
         {/* Recipe Header */}
         <Card className="mb-8">
           <CardContent className="pt-6">
-            <div className="flex flex-wrap gap-2 mb-4">
-              <Badge variant="secondary">{recipe.category}</Badge>
-              <Badge variant="outline">{recipe.difficulty}</Badge>
+            <div className="flex items-start justify-between mb-4">
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="secondary">{recipe.category}</Badge>
+                <Badge variant="outline">{recipe.difficulty}</Badge>
+              </div>
+              <FavoriteButton recipeId={recipe.id} />
             </div>
             <h1 className="text-4xl font-bold text-foreground mb-4">{recipe.title}</h1>
             <p className="text-lg text-muted-foreground mb-6">{recipe.description}</p>
