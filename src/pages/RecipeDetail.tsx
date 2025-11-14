@@ -9,6 +9,7 @@ import { ArrowLeft, Clock, Users, ChefHat } from "lucide-react";
 import { FavoriteButton } from "@/components/FavoriteButton";
 import { RecipeNotes } from "@/components/RecipeNotes";
 import { AddToMealPlan } from "@/components/AddToMealPlan";
+import { AddToShoppingList } from "@/components/AddToShoppingList";
 
 const RecipeDetail = () => {
   const { id } = useParams();
@@ -57,6 +58,11 @@ const RecipeDetail = () => {
                 <Badge variant="outline">{recipe.difficulty}</Badge>
               </div>
               <div className="flex gap-2">
+                <AddToShoppingList
+                  ingredients={recipe.ingredients}
+                  recipeId={recipe.id}
+                  recipeName={recipe.title}
+                />
                 <AddToMealPlan recipeId={recipe.id} recipeName={recipe.title} />
                 <FavoriteButton recipeId={recipe.id} />
               </div>
