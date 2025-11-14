@@ -5,7 +5,8 @@ import { CategoryCard } from "@/components/CategoryCard";
 import { RecipeCard } from "@/components/RecipeCard";
 import { recipes, categories } from "@/data/recipes";
 import { Button } from "@/components/ui/button";
-import { UtensilsCrossed, Cake, Coffee, Soup, Salad, Sun } from "lucide-react";
+import { UtensilsCrossed, Cake, Coffee, Soup, Salad, Sun, Heart, User, LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 import heroImage from "@/assets/hero-food.jpg";
 import categoryMeals from "@/assets/category-meals.jpg";
 import categorySalads from "@/assets/category-salads.jpg";
@@ -35,6 +36,7 @@ const categoryImages = {
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+  const { user, signOut } = useAuth();
 
   const filteredRecipes = recipes.filter(recipe =>
     recipe.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -48,6 +50,46 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Navigation Header */}
+      <header className="bg-card border-b border-border sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-bold text-foreground">Recipe Haven</h2>
+            <div className="flex items-center gap-2">
+              {user ? (
+                <>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate("/favorites")}
+                    className="gap-2"
+                  >
+                    <Heart className="w-4 h-4" />
+                    Favorites
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={signOut}
+                    className="gap-2"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  variant="default"
+                  onClick={() => navigate("/auth")}
+                  className="gap-2"
+                >
+                  <User className="w-4 h-4" />
+                  Sign In
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+      </header>
+      
       {/* Hero Section */}
       <section className="relative h-[500px] overflow-hidden">
         <div className="absolute inset-0">

@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { SearchBar } from "@/components/SearchBar";
 import { RecipeCard } from "@/components/RecipeCard";
 import { DietaryFilter } from "@/components/DietaryFilter";
 import { recipes, categories, DietaryTag } from "@/data/recipes";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Heart, User, LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 const Recipes = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const { user, signOut } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(
     searchParams.get("category")
@@ -50,6 +54,51 @@ const Recipes = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Navigation Header */}
+      <header className="bg-card border-b border-border sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <h2 
+              className="text-xl font-bold text-foreground cursor-pointer" 
+              onClick={() => navigate("/")}
+            >
+              Recipe Haven
+            </h2>
+            <div className="flex items-center gap-2">
+              {user ? (
+                <>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate("/favorites")}
+                    className="gap-2"
+                  >
+                    <Heart className="w-4 h-4" />
+                    Favorites
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={signOut}
+                    className="gap-2"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    Sign Out
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  variant="default"
+                  onClick={() => navigate("/auth")}
+                  className="gap-2"
+                >
+                  <User className="w-4 h-4" />
+                  Sign In
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+      </header>
+
       {/* Header */}
       <section className="bg-gradient-to-r from-primary/10 to-secondary/10 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
