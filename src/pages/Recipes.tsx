@@ -6,13 +6,15 @@ import { DietaryFilter } from "@/components/DietaryFilter";
 import { recipes, categories, DietaryTag } from "@/data/recipes";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Heart, User, LogOut } from "lucide-react";
+import { Heart, User, LogOut, Crown, Sparkles } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { useSubscription } from "@/hooks/useSubscription";
 
 const Recipes = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { user, signOut } = useAuth();
+  const { subscribed, getTierName } = useSubscription();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(
     searchParams.get("category")
@@ -58,12 +60,29 @@ const Recipes = () => {
       <header className="bg-card border-b border-border sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
-            <h2 
-              className="text-xl font-bold text-foreground cursor-pointer" 
-              onClick={() => navigate("/")}
-            >
-              Recipe Haven
-            </h2>
+            <div className="flex items-center gap-3">
+              <h2 
+                className="text-xl font-bold text-foreground cursor-pointer" 
+                onClick={() => navigate("/")}
+              >
+                Recipe Haven
+              </h2>
+              {subscribed && getTierName() && (
+                <Badge 
+                  variant="secondary" 
+                  className="gap-1 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20"
+                  onClick={() => navigate("/pricing")}
+                  style={{ cursor: "pointer" }}
+                >
+                  {getTierName() === "Premium" ? (
+                    <Crown className="w-3 h-3" />
+                  ) : (
+                    <Sparkles className="w-3 h-3" />
+                  )}
+                  {getTierName()}
+                </Badge>
+              )}
+            </div>
             <div className="flex items-center gap-2">
               {user ? (
                 <>
