@@ -45,14 +45,24 @@ const Favorites = () => {
       <header className="bg-card border-b border-border sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
-            <Button
-              variant="ghost"
-              onClick={() => navigate("/")}
-              className="gap-2"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                onClick={() => navigate("/")}
+                className="gap-2"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => navigate("/pricing")}
+                className="gap-2"
+              >
+                <Crown className="w-4 h-4" />
+                Pricing
+              </Button>
+            </div>
             <div className="flex items-center gap-3">
               <Heart className="w-6 h-6 text-primary fill-primary" />
               <h1 className="text-2xl font-bold text-foreground">My Favorites</h1>
@@ -72,7 +82,7 @@ const Favorites = () => {
                 </Badge>
               )}
             </div>
-            <div className="w-20" /> {/* Spacer for centering */}
+            <div className="w-32" /> {/* Spacer for centering */}
           </div>
         </div>
       </header>

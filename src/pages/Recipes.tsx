@@ -84,6 +84,14 @@ const Recipes = () => {
               )}
             </div>
             <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                onClick={() => navigate("/pricing")}
+                className="gap-2"
+              >
+                <Crown className="w-4 h-4" />
+                Pricing
+              </Button>
               {user ? (
                 <>
                   <Button
