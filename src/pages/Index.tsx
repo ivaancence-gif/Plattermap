@@ -60,7 +60,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <h2 className="text-xl font-bold text-foreground">Recipe Haven</h2>
+              <h2 className="text-xl font-bold text-foreground">Recipe Book</h2>
               {subscribed && getTierName() && (
                 <Badge 
                   variant="secondary" 
