@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Heart, User, LogOut, Crown, Sparkles, CalendarDays } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useSubscription, TIERS } from "@/hooks/useSubscription";
+import logoImage from "@/assets/recipe-book-logo.png";
 
 const Recipes = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -63,12 +64,12 @@ const Recipes = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <h2 
-                className="text-xl font-bold text-foreground cursor-pointer" 
+              <img 
+                src={logoImage} 
+                alt="Recipe Book" 
+                className="h-10 cursor-pointer" 
                 onClick={() => navigate("/")}
-              >
-                Recipe Book
-              </h2>
+              />
               {subscribed && getTierName() && (
                 <Badge 
                   variant="secondary" 
