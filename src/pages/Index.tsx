@@ -17,6 +17,7 @@ import categoryDrinks from "@/assets/category-drinks.jpg";
 import categorySoups from "@/assets/category-soups.jpg";
 import categoryBreakfast from "@/assets/category-breakfast.jpg";
 import logoImage from "@/assets/recipe-book-logo.png";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const categoryIcons = {
   "Meals": UtensilsCrossed,
@@ -79,6 +80,7 @@ const Index = () => {
               )}
             </div>
             <div className="flex items-center gap-2">
+              <ThemeToggle />
               <Button
                 variant="ghost"
                 onClick={() => navigate("/pricing")}

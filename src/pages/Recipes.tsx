@@ -10,6 +10,7 @@ import { Heart, User, LogOut, Crown, Sparkles, CalendarDays } from "lucide-react
 import { useAuth } from "@/hooks/useAuth";
 import { useSubscription, TIERS } from "@/hooks/useSubscription";
 import logoImage from "@/assets/recipe-book-logo.png";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Recipes = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -87,6 +88,7 @@ const Recipes = () => {
               )}
             </div>
             <div className="flex items-center gap-2">
+              <ThemeToggle />
               <Button
                 variant="ghost"
                 onClick={() => navigate("/pricing")}
