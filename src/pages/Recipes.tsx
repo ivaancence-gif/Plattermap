@@ -67,7 +67,7 @@ const Recipes = () => {
                 className="text-xl font-bold text-foreground cursor-pointer" 
                 onClick={() => navigate("/")}
               >
-                Recipe Haven
+                Recipe Book
               </h2>
               {subscribed && getTierName() && (
                 <Badge 
