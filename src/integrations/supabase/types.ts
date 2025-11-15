@@ -153,6 +153,9 @@ export type Database = {
           created_at: string
           default_servings: number | null
           default_view: string | null
+          email_new_features: boolean | null
+          email_recipe_updates: boolean | null
+          email_weekly_recommendations: boolean | null
           id: string
           measurement_unit: string | null
           theme: string | null
@@ -163,6 +166,9 @@ export type Database = {
           created_at?: string
           default_servings?: number | null
           default_view?: string | null
+          email_new_features?: boolean | null
+          email_recipe_updates?: boolean | null
+          email_weekly_recommendations?: boolean | null
           id?: string
           measurement_unit?: string | null
           theme?: string | null
@@ -173,6 +179,9 @@ export type Database = {
           created_at?: string
           default_servings?: number | null
           default_view?: string | null
+          email_new_features?: boolean | null
+          email_recipe_updates?: boolean | null
+          email_weekly_recommendations?: boolean | null
           id?: string
           measurement_unit?: string | null
           theme?: string | null

@@ -14,6 +14,9 @@ export interface UserPreferences {
   default_view: ViewPreference;
   measurement_unit: MeasurementUnit;
   default_servings: number;
+  email_recipe_updates: boolean;
+  email_new_features: boolean;
+  email_weekly_recommendations: boolean;
 }
 
 export const useUserPreferences = () => {
@@ -24,6 +27,9 @@ export const useUserPreferences = () => {
     default_view: "grid",
     measurement_unit: "metric",
     default_servings: 4,
+    email_recipe_updates: true,
+    email_new_features: true,
+    email_weekly_recommendations: true,
   });
   const [loading, setLoading] = useState(true);
 
@@ -55,6 +61,9 @@ export const useUserPreferences = () => {
           default_view: data.default_view as ViewPreference,
           measurement_unit: data.measurement_unit as MeasurementUnit,
           default_servings: data.default_servings,
+          email_recipe_updates: data.email_recipe_updates ?? true,
+          email_new_features: data.email_new_features ?? true,
+          email_weekly_recommendations: data.email_weekly_recommendations ?? true,
         });
       }
     } catch (error: any) {

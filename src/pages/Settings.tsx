@@ -7,7 +7,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
-import { ArrowLeft, Sun, Moon, Monitor } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { ArrowLeft, Sun, Moon, Monitor, Mail } from "lucide-react";
 import { useEffect } from "react";
 
 const Settings = () => {
@@ -187,6 +188,70 @@ const Settings = () => {
                 <p className="text-sm text-muted-foreground">
                   Your preferred system for measurements
                 </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Separator />
+
+          {/* Email Notification Settings */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Mail className="h-5 w-5" />
+                Email Notifications
+              </CardTitle>
+              <CardDescription>
+                Manage your email notification preferences
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label htmlFor="recipe-updates">Recipe Updates</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Get notified about new recipes and recipe improvements
+                  </p>
+                </div>
+                <Switch
+                  id="recipe-updates"
+                  checked={preferences.email_recipe_updates}
+                  onCheckedChange={(checked) =>
+                    updatePreferences({ email_recipe_updates: checked })
+                  }
+                />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label htmlFor="new-features">New Features</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Be the first to know about new features and updates
+                  </p>
+                </div>
+                <Switch
+                  id="new-features"
+                  checked={preferences.email_new_features}
+                  onCheckedChange={(checked) =>
+                    updatePreferences({ email_new_features: checked })
+                  }
+                />
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label htmlFor="weekly-recommendations">Weekly Recommendations</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Receive personalized recipe recommendations every week
+                  </p>
+                </div>
+                <Switch
+                  id="weekly-recommendations"
+                  checked={preferences.email_weekly_recommendations}
+                  onCheckedChange={(checked) =>
+                    updatePreferences({ email_weekly_recommendations: checked })
+                  }
+                />
               </div>
             </CardContent>
           </Card>
