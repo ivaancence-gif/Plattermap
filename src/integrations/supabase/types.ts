@@ -148,6 +148,39 @@ export type Database = {
         }
         Relationships: []
       }
+      user_preferences: {
+        Row: {
+          created_at: string
+          default_servings: number | null
+          default_view: string | null
+          id: string
+          measurement_unit: string | null
+          theme: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          default_servings?: number | null
+          default_view?: string | null
+          id?: string
+          measurement_unit?: string | null
+          theme?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          default_servings?: number | null
+          default_view?: string | null
+          id?: string
+          measurement_unit?: string | null
+          theme?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

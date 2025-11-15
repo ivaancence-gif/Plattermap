@@ -6,7 +6,7 @@ import { DietaryFilter } from "@/components/DietaryFilter";
 import { recipes, categories, DietaryTag } from "@/data/recipes";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Heart, User, LogOut, Crown, Sparkles, CalendarDays } from "lucide-react";
+import { Heart, User, LogOut, Crown, Sparkles, CalendarDays, Settings as SettingsIcon, ShoppingCart } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useSubscription, TIERS } from "@/hooks/useSubscription";
 import logoImage from "@/assets/recipe-book-logo.png";
@@ -100,14 +100,24 @@ const Recipes = () => {
               {user ? (
                 <>
                   {isProUser && (
-                    <Button
-                      variant="ghost"
-                      onClick={() => navigate("/meal-planner")}
-                      className="gap-2"
-                    >
-                      <CalendarDays className="w-4 h-4" />
-                      Meal Planner
-                    </Button>
+                    <>
+                      <Button
+                        variant="ghost"
+                        onClick={() => navigate("/meal-planner")}
+                        className="gap-2"
+                      >
+                        <CalendarDays className="w-4 h-4" />
+                        Meal Planner
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        onClick={() => navigate("/shopping-list")}
+                        className="gap-2"
+                      >
+                        <ShoppingCart className="w-4 h-4" />
+                        Shopping List
+                      </Button>
+                    </>
                   )}
                   <Button
                     variant="ghost"
@@ -116,6 +126,14 @@ const Recipes = () => {
                   >
                     <User className="w-4 h-4" />
                     Profile
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => navigate("/settings")}
+                    className="gap-2"
+                  >
+                    <SettingsIcon className="w-4 h-4" />
+                    Settings
                   </Button>
                   <Button
                     variant="ghost"
