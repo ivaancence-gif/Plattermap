@@ -2,10 +2,59 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, DollarSign, Users, TrendingUp, Gift, CheckCircle2, Sparkles } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { ArrowLeft, DollarSign, Users, TrendingUp, Gift, CheckCircle2, Sparkles, Mail, Globe } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
+import { useState } from "react";
 
 const Affiliate = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    website: "",
+    audience: "",
+    message: "",
+  });
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Simulate form submission
+    setTimeout(() => {
+      toast({
+        title: "Application Submitted!",
+        description: "We'll review your application and get back to you within 2-3 business days.",
+      });
+      setFormData({
+        name: "",
+        email: "",
+        website: "",
+        audience: "",
+        message: "",
+      });
+      setIsSubmitting(false);
+    }, 1500);
+  };
 
   const benefits = [
     {
@@ -89,18 +138,18 @@ const Affiliate = () => {
             Partner with Recipe Book and earn generous commissions by sharing our premium recipe platform with your audience.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="gap-2">
+            <Button size="lg" className="gap-2" onClick={() => scrollToSection("application-form")}>
               <Users className="w-5 h-5" />
               Join Affiliate Program
             </Button>
-            <Button size="lg" variant="outline">
+            <Button size="lg" variant="outline" onClick={() => scrollToSection("benefits")}>
               Learn More
             </Button>
           </div>
         </div>
 
         {/* Benefits Section */}
-        <section className="mb-16">
+        <section id="benefits" className="mb-16 scroll-mt-20">
           <h3 className="text-3xl font-bold text-center text-foreground mb-8">
             Why Join Our Affiliate Program?
           </h3>
@@ -181,23 +230,112 @@ const Affiliate = () => {
           </Card>
         </section>
 
-        {/* CTA Section */}
-        <section className="text-center bg-gradient-to-r from-primary/10 via-primary/5 to-primary/10 rounded-2xl p-12">
-          <h3 className="text-3xl font-bold text-foreground mb-4">
-            Ready to Get Started?
+        {/* Application Form Section */}
+        <section id="application-form" className="mb-16 scroll-mt-20">
+          <h3 className="text-3xl font-bold text-center text-foreground mb-8">
+            Apply to Join Our Program
           </h3>
-          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Join thousands of content creators, food bloggers, and influencers who are earning with Recipe Book.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="gap-2">
-              <Users className="w-5 h-5" />
-              Apply Now
-            </Button>
-            <Button size="lg" variant="outline">
-              Contact Support
-            </Button>
-          </div>
+          <Card className="max-w-2xl mx-auto border-border">
+            <CardHeader>
+              <CardTitle>Affiliate Application</CardTitle>
+              <CardDescription>
+                Tell us about yourself and how you plan to promote Recipe Book
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Full Name *</Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder="John Doe"
+                    required
+                    className="bg-background"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email Address *</Label>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      placeholder="john@example.com"
+                      required
+                      className="pl-10 bg-background"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="website">Website/Social Media URL *</Label>
+                  <div className="relative">
+                    <Globe className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      id="website"
+                      name="website"
+                      type="url"
+                      value={formData.website}
+                      onChange={handleInputChange}
+                      placeholder="https://yourwebsite.com"
+                      required
+                      className="pl-10 bg-background"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="audience">Audience Size</Label>
+                  <Input
+                    id="audience"
+                    name="audience"
+                    value={formData.audience}
+                    onChange={handleInputChange}
+                    placeholder="e.g., 10,000 monthly visitors"
+                    className="bg-background"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="message">
+                    Why do you want to join our affiliate program?
+                  </Label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder="Tell us about your promotional strategy..."
+                    rows={4}
+                    className="bg-background"
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full gap-2"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    "Submitting..."
+                  ) : (
+                    <>
+                      <Users className="w-5 h-5" />
+                      Submit Application
+                    </>
+                  )}
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
         </section>
       </main>
 
