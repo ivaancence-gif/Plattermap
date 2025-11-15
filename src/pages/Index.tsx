@@ -16,6 +16,7 @@ import categoryDesserts from "@/assets/category-desserts.jpg";
 import categoryDrinks from "@/assets/category-drinks.jpg";
 import categorySoups from "@/assets/category-soups.jpg";
 import categoryBreakfast from "@/assets/category-breakfast.jpg";
+import logoImage from "@/assets/recipe-book-logo.png";
 
 const categoryIcons = {
   "Meals": UtensilsCrossed,
@@ -60,7 +61,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <h2 className="text-xl font-bold text-foreground">Recipe Book</h2>
+              <img src={logoImage} alt="Recipe Book" className="h-10 cursor-pointer" onClick={() => navigate("/")} />
               {subscribed && getTierName() && (
                 <Badge 
                   variant="secondary" 
