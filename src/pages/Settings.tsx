@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useUserPreferences } from "@/hooks/useUserPreferences";
+import { useNotifications } from "@/hooks/useNotifications";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,14 +9,16 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
-import { ArrowLeft, Sun, Moon, Monitor, Mail } from "lucide-react";
-import { useEffect } from "react";
+import { ArrowLeft, Sun, Moon, Monitor, Mail, Send } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const Settings = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { preferences, updatePreferences, loading } = useUserPreferences();
+  const { sendNotification } = useNotifications();
   const { theme, setTheme } = useTheme();
+  const [sendingTest, setSendingTest] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -32,6 +35,30 @@ const Settings = () => {
   const handleThemeChange = (value: string) => {
     setTheme(value);
     updatePreferences({ theme: value as any });
+  };
+
+  const handleSendTestEmail = async () => {
+    if (!user) return;
+    
+    setSendingTest(true);
+    try {
+      await sendNotification(
+        user.id,
+        "new_features",
+        "Test Notification from Recipe Book",
+        `
+          <h1>Test Email</h1>
+          <p>This is a test email to verify your notification settings are working correctly.</p>
+          <p>If you received this email, your notification preferences are configured properly!</p>
+          <br/>
+          <p>Best regards,<br/>The Recipe Book Team</p>
+        `
+      );
+    } catch (error) {
+      console.error("Error sending test email:", error);
+    } finally {
+      setSendingTest(false);
+    }
   };
 
   if (loading) {
@@ -253,6 +280,33 @@ const Settings = () => {
                   }
                 />
               </div>
+            </CardContent>
+          </Card>
+
+          <Separator />
+
+          {/* Test Email Section */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Send className="h-5 w-5" />
+                Test Notifications
+              </CardTitle>
+              <CardDescription>
+                Send a test email to verify your notification settings
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button 
+                onClick={handleSendTestEmail} 
+                disabled={sendingTest}
+                className="w-full sm:w-auto"
+              >
+                {sendingTest ? "Sending..." : "Send Test Email"}
+              </Button>
+              <p className="text-sm text-muted-foreground mt-2">
+                This will send a test notification to your email address
+              </p>
             </CardContent>
           </Card>
         </div>
