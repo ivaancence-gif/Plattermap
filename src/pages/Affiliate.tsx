@@ -7,12 +7,40 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, DollarSign, Users, TrendingUp, Gift, CheckCircle2, Sparkles, Mail, Globe } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import { useState } from "react";
+import { z } from "zod";
+
+// Validation schema
+const affiliateSchema = z.object({
+  name: z.string()
+    .trim()
+    .min(1, "Name is required")
+    .max(100, "Name must be less than 100 characters"),
+  email: z.string()
+    .trim()
+    .email("Invalid email address")
+    .max(255, "Email must be less than 255 characters"),
+  website: z.string()
+    .trim()
+    .url("Invalid URL format")
+    .regex(/^https?:\/\/.+/, "URL must start with http:// or https://")
+    .max(500, "Website URL must be less than 500 characters"),
+  audience: z.string()
+    .trim()
+    .max(200, "Audience description must be less than 200 characters")
+    .optional(),
+  message: z.string()
+    .trim()
+    .max(2000, "Message must be less than 2000 characters")
+    .optional(),
+});
 
 const Affiliate = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -33,18 +61,61 @@ const Affiliate = () => {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      // Validate form data
+      const validatedData = affiliateSchema.parse(formData);
+
+      // Submit to edge function
+      const { data, error } = await supabase.functions.invoke(
+        "submit-affiliate-application",
+        {
+          body: validatedData,
+        }
+      );
+
+      if (error) {
+        console.error("Submission error:", error);
+        throw new Error(error.message || "Failed to submit application");
+      }
+
+      if (data.error) {
+        if (data.details && Array.isArray(data.details)) {
+          toast({
+            title: "Validation Error",
+            description: data.details.join(", "),
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Error",
+            description: data.error,
+            variant: "destructive",
+          });
+        }
+        return;
+      }
+
       toast({
         title: "Application Submitted!",
         description: "We'll review your application and get back to you within 2-3 business days.",
       });
+
+      // Reset form
       setFormData({
         name: "",
         email: "",
@@ -52,8 +123,32 @@ const Affiliate = () => {
         audience: "",
         message: "",
       });
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        // Handle validation errors
+        const fieldErrors: Record<string, string> = {};
+        error.issues.forEach((issue) => {
+          if (issue.path[0]) {
+            fieldErrors[issue.path[0].toString()] = issue.message;
+          }
+        });
+        setErrors(fieldErrors);
+        toast({
+          title: "Validation Error",
+          description: "Please check the form for errors",
+          variant: "destructive",
+        });
+      } else {
+        console.error("Unexpected error:", error);
+        toast({
+          title: "Error",
+          description: "Failed to submit application. Please try again.",
+          variant: "destructive",
+        });
+      }
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
 
   const benefits = [
@@ -253,8 +348,11 @@ const Affiliate = () => {
                     onChange={handleInputChange}
                     placeholder="John Doe"
                     required
-                    className="bg-background"
+                    className={`bg-background ${errors.name ? 'border-destructive' : ''}`}
                   />
+                  {errors.name && (
+                    <p className="text-sm text-destructive">{errors.name}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -269,9 +367,12 @@ const Affiliate = () => {
                       onChange={handleInputChange}
                       placeholder="john@example.com"
                       required
-                      className="pl-10 bg-background"
+                      className={`pl-10 bg-background ${errors.email ? 'border-destructive' : ''}`}
                     />
                   </div>
+                  {errors.email && (
+                    <p className="text-sm text-destructive">{errors.email}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -286,9 +387,12 @@ const Affiliate = () => {
                       onChange={handleInputChange}
                       placeholder="https://yourwebsite.com"
                       required
-                      className="pl-10 bg-background"
+                      className={`pl-10 bg-background ${errors.website ? 'border-destructive' : ''}`}
                     />
                   </div>
+                  {errors.website && (
+                    <p className="text-sm text-destructive">{errors.website}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -299,8 +403,11 @@ const Affiliate = () => {
                     value={formData.audience}
                     onChange={handleInputChange}
                     placeholder="e.g., 10,000 monthly visitors"
-                    className="bg-background"
+                    className={`bg-background ${errors.audience ? 'border-destructive' : ''}`}
                   />
+                  {errors.audience && (
+                    <p className="text-sm text-destructive">{errors.audience}</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -314,8 +421,11 @@ const Affiliate = () => {
                     onChange={handleInputChange}
                     placeholder="Tell us about your promotional strategy..."
                     rows={4}
-                    className="bg-background"
+                    className={`bg-background ${errors.message ? 'border-destructive' : ''}`}
                   />
+                  {errors.message && (
+                    <p className="text-sm text-destructive">{errors.message}</p>
+                  )}
                 </div>
 
                 <Button
