@@ -6,7 +6,7 @@ import { DietaryFilter } from "@/components/DietaryFilter";
 import { recipes, categories, DietaryTag } from "@/data/recipes";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Heart, User, LogOut, Crown, Sparkles, CalendarDays, Settings as SettingsIcon, ShoppingCart } from "lucide-react";
+import { Heart, User, LogOut, Crown, Sparkles, CalendarDays, Settings as SettingsIcon, ShoppingCart, Users } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useSubscription, TIERS } from "@/hooks/useSubscription";
 import logoImage from "@/assets/recipe-book-logo.png";
@@ -89,6 +89,14 @@ const Recipes = () => {
             </div>
             <div className="flex items-center gap-2">
               <ThemeToggle />
+              <Button
+                variant="ghost"
+                onClick={() => navigate("/affiliate")}
+                className="gap-2"
+              >
+                <Users className="w-4 h-4" />
+                Affiliate
+              </Button>
               <Button
                 variant="ghost"
                 onClick={() => navigate("/pricing")}
