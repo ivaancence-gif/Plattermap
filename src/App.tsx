@@ -16,6 +16,7 @@ import Profile from "./pages/Profile";
 import MealPlanner from "./pages/MealPlanner";
 import ShoppingList from "./pages/ShoppingList";
 import Settings from "./pages/Settings";
+import Affiliate from "./pages/Affiliate";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
             <Route path="/meal-planner" element={<MealPlanner />} />
             <Route path="/shopping-list" element={<ShoppingList />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/affiliate" element={<Affiliate />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
               </Routes>
