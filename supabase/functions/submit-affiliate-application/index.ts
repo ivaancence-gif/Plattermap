@@ -157,7 +157,7 @@ const handler = async (req: Request): Promise<Response> => {
     try {
       await resend.emails.send({
         from: "Recipe Book <onboarding@resend.dev>",
-        to: ["admin@recipebook.com"], // Replace with your admin email
+        to: ["recipebook@gmail.com"],
         subject: "New Affiliate Application",
         html: `
           <h1>New Affiliate Application</h1>
