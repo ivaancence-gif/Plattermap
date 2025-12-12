@@ -897,6 +897,37 @@ export const recipes: Recipe[] = [
     ],
     nutrition: { calories: 360, protein: "12g", carbs: "48g", fat: "14g", fiber: "2g" }
   },
+  {
+    id: "35",
+    title: "Classic Omelette",
+    category: "Breakfast",
+    cuisine: "French",
+    image: recipeImageMap["35"],
+    cookTime: "10 min",
+    servings: 1,
+    difficulty: "Easy",
+    description: "A perfectly folded French omelette with creamy cheese filling and fresh herbs.",
+    dietaryTags: ["Vegetarian", "Gluten-Free", "Keto"],
+    ingredients: [
+      "3 large eggs",
+      "1 tbsp butter",
+      "2 tbsp grated cheese (gruyère or cheddar)",
+      "1 tbsp fresh chives, chopped",
+      "Salt and pepper to taste",
+      "1 tbsp milk or cream (optional)"
+    ],
+    instructions: [
+      "Crack eggs into a bowl and whisk until well combined.",
+      "Add milk or cream if using, season with salt and pepper.",
+      "Heat a non-stick pan over medium heat and add butter.",
+      "When butter foams, pour in the egg mixture.",
+      "Let eggs set slightly, then gently push edges toward center.",
+      "When omelette is still slightly wet on top, add cheese to one half.",
+      "Fold the omelette in half and slide onto a plate.",
+      "Garnish with fresh chives and serve immediately."
+    ],
+    nutrition: { calories: 320, protein: "21g", carbs: "2g", fat: "25g", fiber: "0g" }
+  },
 
   ...internationalRecipes
 ];
