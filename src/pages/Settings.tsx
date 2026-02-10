@@ -45,13 +45,13 @@ const Settings = () => {
       await sendNotification(
         user.id,
         "new_features",
-        "Test Notification from Recipe Book",
+        "Test Notification from PlatterMap",
         `
           <h1>Test Email</h1>
           <p>This is a test email to verify your notification settings are working correctly.</p>
           <p>If you received this email, your notification preferences are configured properly!</p>
           <br/>
-          <p>Best regards,<br/>The Recipe Book Team</p>
+          <p>Best regards,<br/>The PlatterMap Team</p>
         `
       );
     } catch (error) {
