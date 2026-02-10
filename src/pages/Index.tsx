@@ -16,7 +16,7 @@ import categoryDesserts from "@/assets/category-desserts.jpg";
 import categoryDrinks from "@/assets/category-drinks.jpg";
 import categorySoups from "@/assets/category-soups.jpg";
 import categoryBreakfast from "@/assets/category-breakfast.jpg";
-import logoImage from "@/assets/recipe-book-logo.png";
+import logoImage from "@/assets/plattermap-logo.png";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const categoryIcons = {
@@ -62,7 +62,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <img src={logoImage} alt="Recipe Book" className="h-10 cursor-pointer" onClick={() => navigate("/")} />
+              <img src={logoImage} alt="PlatterMap" className="h-10 cursor-pointer" onClick={() => navigate("/")} />
               {subscribed && getTierName() && (
                 <Badge 
                   variant="secondary" 
@@ -171,7 +171,7 @@ const Index = () => {
         </div>
         <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
           <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
-            Recipe Book
+            PlatterMap
           </h1>
           <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-2xl">
             Discover delicious recipes from around the world. From hearty meals to sweet desserts, find your next favorite dish.

@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Heart, User, LogOut, Crown, Sparkles, CalendarDays, Settings as SettingsIcon, ShoppingCart } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useSubscription, TIERS } from "@/hooks/useSubscription";
-import logoImage from "@/assets/recipe-book-logo.png";
+import logoImage from "@/assets/plattermap-logo.png";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Recipes = () => {
@@ -67,7 +67,7 @@ const Recipes = () => {
             <div className="flex items-center gap-3">
               <img 
                 src={logoImage} 
-                alt="Recipe Book" 
+                alt="PlatterMap" 
                 className="h-10 cursor-pointer" 
                 onClick={() => navigate("/")}
               />

@@ -17,8 +17,8 @@ export default defineConfig(({ mode }) => ({
       registerType: "autoUpdate",
       includeAssets: ["favicon.ico", "robots.txt"],
       manifest: {
-        name: "Recipe Book",
-        short_name: "RecipeBook",
+        name: "PlatterMap",
+        short_name: "PlatterMap",
         description: "Discover delicious recipes from around the world",
         theme_color: "#16a34a",
         background_color: "#ffffff",

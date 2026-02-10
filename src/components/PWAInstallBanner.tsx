@@ -82,7 +82,7 @@ const PWAInstallBanner = () => {
               <Download className="h-6 w-6 text-primary" />
             </div>
             <div className="flex-1 space-y-1">
-              <h3 className="font-semibold text-foreground text-sm">Install Recipe Book</h3>
+              <h3 className="font-semibold text-foreground text-sm">Install PlatterMap</h3>
               {isIOS ? (
                 <p className="text-xs text-muted-foreground">
                   Tap <Share className="inline h-3.5 w-3.5 -mt-0.5" /> then{" "}

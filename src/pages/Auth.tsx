@@ -52,7 +52,7 @@ const Auth = () => {
     } else {
       toast({
         title: "Account created!",
-        description: "Welcome to Recipe Book",
+        description: "Welcome to PlatterMap",
       });
     }
 
@@ -101,7 +101,7 @@ const Auth = () => {
           <div className="flex justify-center mb-4">
             <ChefHat className="w-12 h-12 text-primary" />
           </div>
-          <CardTitle className="text-2xl">Welcome to Recipe Book</CardTitle>
+          <CardTitle className="text-2xl">Welcome to PlatterMap</CardTitle>
           <CardDescription>Sign in to save your favorite recipes</CardDescription>
         </CardHeader>
         <CardContent>
