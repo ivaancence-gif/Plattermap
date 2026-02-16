@@ -23,6 +23,8 @@ import icedCoffee from "@/assets/recipes/iced-coffee.jpg";
 import mangoSmoothie from "@/assets/recipes/mango-smoothie.jpg";
 import matchaLatte from "@/assets/recipes/matcha-latte.jpg";
 import berryLemonade from "@/assets/recipes/berry-lemonade.jpg";
+import hotChocolate from "@/assets/recipes/hot-chocolate.jpg";
+import greenDetoxSmoothie from "@/assets/recipes/green-detox-smoothie.jpg";
 import butternutSquashSoup from "@/assets/recipes/butternut-squash-soup.jpg";
 import tomatoBasilSoup from "@/assets/recipes/tomato-basil-soup.jpg";
 import chickenNoodleSoup from "@/assets/recipes/chicken-noodle-soup.jpg";
@@ -88,11 +90,11 @@ export const recipeImageMap: Record<string, string> = {
   "22": cheesecake,
   
   // Drinks
-  "4": fruitSmoothieBowl,
-  "23": icedCoffee,
-  "24": mangoSmoothie,
-  "25": matchaLatte,
-  "26": berryLemonade,
+  "4": mangoSmoothie,
+  "23": greenDetoxSmoothie,
+  "24": icedCoffee,
+  "25": berryLemonade,
+  "26": hotChocolate,
   
   // Soups
   "5": butternutSquashSoup,
