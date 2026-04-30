@@ -11,6 +11,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useSubscription, TIERS } from "@/hooks/useSubscription";
 import logoImage from "@/assets/plattermap-logo.png";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { GenerateRecipeDialog } from "@/components/GenerateRecipeDialog";
 
 const Recipes = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -170,7 +171,10 @@ const Recipes = () => {
       {/* Header */}
       <section className="bg-gradient-to-r from-primary/10 to-secondary/10 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl font-bold text-foreground mb-4">All Recipes</h1>
+          <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
+            <h1 className="text-4xl font-bold text-foreground">All Recipes</h1>
+            <GenerateRecipeDialog />
+          </div>
           <p className="text-lg text-muted-foreground mb-6">
             Explore our complete collection of recipes
           </p>

@@ -10,6 +10,7 @@ import { FavoriteButton } from "@/components/FavoriteButton";
 import { RecipeNotes } from "@/components/RecipeNotes";
 import { AddToMealPlan } from "@/components/AddToMealPlan";
 import { AddToShoppingList } from "@/components/AddToShoppingList";
+import { HealthFactsCard } from "@/components/HealthFactsCard";
 
 const RecipeDetail = () => {
   const { id } = useParams();
