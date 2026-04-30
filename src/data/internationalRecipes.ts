@@ -647,7 +647,7 @@ export const internationalRecipes: Recipe[] = [
     title: "Tagine",
     category: "Meals",
     cuisine: "Moroccan",
-    image: "/placeholder.svg",
+    image: recipeImageMap["127"],
     cookTime: "120 min",
     servings: 6,
     difficulty: "Medium",
