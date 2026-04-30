@@ -33,6 +33,7 @@ import classicPancakes from "@/assets/recipes/classic-pancakes.jpg";
 import avocadoToast from "@/assets/recipes/avocado-toast.jpg";
 import belgianWaffles from "@/assets/recipes/belgian-waffles.jpg";
 import acaiBowl from "@/assets/recipes/acai-bowl.jpg";
+import frenchToast from "@/assets/recipes/french-toast.jpg";
 import omelette from "@/assets/recipes/omelette.jpg";
 import risottoAllaMilanese from "@/assets/recipes/risotto-alla-milanese.jpg";
 import ossoBuco from "@/assets/recipes/osso-buco.jpg";
@@ -107,6 +108,8 @@ export const recipeImageMap: Record<string, string> = {
   "30": avocadoToast,
   "31": belgianWaffles,
   "32": acaiBowl,
+  "33": acaiBowl,
+  "34": frenchToast,
   "35": omelette,
   
   // International - Italian
@@ -161,4 +164,5 @@ export const recipeImageMap: Record<string, string> = {
   
   // International - Moroccan
   "126": tagine,
+  "127": tagine,
 };
