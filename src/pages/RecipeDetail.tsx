@@ -172,6 +172,9 @@ const RecipeDetail = () => {
             </Card>
 
             {/* Recipe Notes */}
+            <HealthFactsCard recipeTitle={recipe.title} ingredients={recipe.ingredients} />
+
+            {/* Recipe Notes */}
             <RecipeNotes recipeId={recipe.id} />
           </div>
         </div>
