@@ -108,7 +108,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send email via Resend
     const emailResponse = await resend.emails.send({
-      from: "Recipe Book <onboarding@resend.dev>",
+      from: "PlatterMap <onboarding@resend.dev>",
       to: [profile.email],
       subject: subject,
       html: htmlContent,
