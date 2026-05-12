@@ -99,7 +99,7 @@ export const recipeImageMap: Record<string, string> = {
   "4": mangoSmoothie,
   "23": greenDetoxSmoothie,
   "24": icedCoffee,
-  "25": berryLemonade,
+  "25": freshLemonade,
   "26": hotChocolate,
   
   // Soups
