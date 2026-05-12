@@ -103,16 +103,16 @@ export const recipeImageMap: Record<string, string> = {
   "26": hotChocolate,
   
   // Soups
-  "5": butternutSquashSoup,
-  "27": tomatoBasilSoup,
-  "28": chickenNoodleSoup,
-  "29": frenchOnionSoup,
+  "5": vegetableSoup,
+  "27": chickenNoodleSoup,
+  "28": frenchOnionSoup,
+  "29": tomYumSoup,
+  "30": minestrone,
   
   // Breakfast
-  "6": classicPancakes,
-  "30": avocadoToast,
-  "31": belgianWaffles,
-  "32": acaiBowl,
+  "6": avocadoToast,
+  "31": classicPancakes,
+  "32": eggsBenedict,
   "33": acaiBowl,
   "34": frenchToast,
   "35": omelette,
@@ -167,7 +167,9 @@ export const recipeImageMap: Record<string, string> = {
   // International - Spanish
   "125": paella,
   
+  // International - Spanish (Gazpacho)
+  "126": gazpacho,
+  
   // International - Moroccan
-  "126": tagine,
   "127": tagine,
 };
