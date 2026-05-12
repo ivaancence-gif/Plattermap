@@ -22,7 +22,7 @@ import fruitSmoothieBowl from "@/assets/recipes/fruit-smoothie-bowl.jpg";
 import icedCoffee from "@/assets/recipes/iced-coffee.jpg";
 import mangoSmoothie from "@/assets/recipes/mango-smoothie.jpg";
 import matchaLatte from "@/assets/recipes/matcha-latte.jpg";
-import berryLemonade from "@/assets/recipes/berry-lemonade.jpg";
+import freshLemonade from "@/assets/recipes/fresh-lemonade.jpg";
 import hotChocolate from "@/assets/recipes/hot-chocolate.jpg";
 import greenDetoxSmoothie from "@/assets/recipes/green-detox-smoothie.jpg";
 import vegetableSoup from "@/assets/recipes/vegetable-soup.jpg";
