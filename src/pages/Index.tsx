@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { SearchBar } from "@/components/SearchBar";
 import { CategoryCard } from "@/components/CategoryCard";
 import { RecipeCard } from "@/components/RecipeCard";
-import { recipes, categories } from "@/data/recipes";
+import { useRecipes, getCategories } from "@/hooks/useRecipes";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { UtensilsCrossed, Cake, Coffee, Soup, Salad, Sun, Heart, User, LogOut, Crown, Sparkles, CalendarDays, ShoppingCart, Settings as SettingsIcon } from "lucide-react";
@@ -44,6 +44,9 @@ const Index = () => {
   const { subscribed, getTierName, productId } = useSubscription();
 
   const isProUser = subscribed && productId === TIERS.pro.product_id;
+
+  const { recipes } = useRecipes();
+  const categories = getCategories(recipes);
 
   const filteredRecipes = recipes.filter(recipe =>
     recipe.title.toLowerCase().includes(searchQuery.toLowerCase()) ||

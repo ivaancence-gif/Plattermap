@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useSubscription, TIERS } from "@/hooks/useSubscription";
-import { recipes } from "@/data/recipes";
-import { internationalRecipes } from "@/data/internationalRecipes";
+import { Recipe } from "@/data/recipes";
+import { useRecipes } from "@/hooks/useRecipes";
 import { RecipeCard } from "@/components/RecipeCard";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -21,7 +21,8 @@ const Favorites = () => {
     productId === TIERS.pro.product_id
   );
 
-  const [favoriteRecipes, setFavoriteRecipes] = useState<typeof recipes>([]);
+  const { recipes: allRecipes } = useRecipes();
+  const [favoriteRecipes, setFavoriteRecipes] = useState<Recipe[]>([]);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -30,12 +31,11 @@ const Favorites = () => {
   }, [user, authLoading, navigate]);
 
   useEffect(() => {
-    const allRecipes = [...recipes, ...internationalRecipes];
     const favRecipes = allRecipes.filter((recipe) =>
       favorites.includes(recipe.id)
     );
     setFavoriteRecipes(favRecipes);
-  }, [favorites]);
+  }, [favorites, allRecipes]);
 
   if (authLoading || favLoading) {
     return (

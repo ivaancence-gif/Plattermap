@@ -8,8 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Calendar } from "@/components/ui/calendar";
 import { ArrowLeft, Calendar as CalendarIcon, Lock, Sparkles } from "lucide-react";
-import { recipes } from "@/data/recipes";
-import { internationalRecipes } from "@/data/internationalRecipes";
+import { useRecipes } from "@/hooks/useRecipes";
 import { toast } from "@/hooks/use-toast";
 
 interface MealPlan {
@@ -23,6 +22,7 @@ const MealPlanner = () => {
   const navigate = useNavigate();
   const { user, loading: authLoading } = useAuth();
   const { subscribed, productId } = useSubscription();
+  const { recipes: allRecipes } = useRecipes();
   const [mealPlans, setMealPlans] = useState<MealPlan[]>([]);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [loading, setLoading] = useState(true);
@@ -69,7 +69,6 @@ const MealPlanner = () => {
   };
 
   const getRecipeById = (recipeId: string) => {
-    const allRecipes = [...recipes, ...internationalRecipes];
     return allRecipes.find(r => r.id === recipeId);
   };
 

@@ -3,7 +3,8 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { SearchBar } from "@/components/SearchBar";
 import { RecipeCard } from "@/components/RecipeCard";
 import { DietaryFilter } from "@/components/DietaryFilter";
-import { recipes, categories, DietaryTag } from "@/data/recipes";
+import { DietaryTag } from "@/data/recipes";
+import { useRecipes, getCategories } from "@/hooks/useRecipes";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Heart, User, LogOut, Crown, Sparkles, CalendarDays, Settings as SettingsIcon, ShoppingCart } from "lucide-react";
@@ -25,6 +26,9 @@ const Recipes = () => {
     searchParams.get("category")
   );
   const [selectedDietaryTags, setSelectedDietaryTags] = useState<DietaryTag[]>([]);
+
+  const { recipes } = useRecipes();
+  const categories = getCategories(recipes);
 
   useEffect(() => {
     const category = searchParams.get("category");
