@@ -1,6 +1,0 @@
-git clone [your-repo-url]
-cd [your-project-name]
-npm install
-npm install @capacitor/core @capacitor/cli @capacitor/android
-npx cap init [AppName] [com.yourname.app]
-npx cap add android
