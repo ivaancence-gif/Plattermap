@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useSubscription, TIERS } from "@/hooks/useSubscription";
@@ -20,6 +21,7 @@ interface MealPlan {
 
 const MealPlanner = () => {
   const navigate = useNavigate();
+  usePageTitle("Meal Planner");
   const { user, loading: authLoading } = useAuth();
   const { subscribed, productId } = useSubscription();
   const { recipes: allRecipes } = useRecipes();

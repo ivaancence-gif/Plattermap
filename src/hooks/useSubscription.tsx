@@ -9,13 +9,13 @@ export const TIERS = {
     price_id: "price_1STHJ4D8GbFj4s72Wi3Ybj6i",
     product_id: "prod_TQ7YIIpXK9EbNi",
     name: "Premium",
-    price: "₹886.51",
+    price: "$9.99",
   },
   pro: {
     price_id: "price_1STHKTD8GbFj4s72nFXPnm9f",
     product_id: "prod_TQ7ZlldnS8aLyF",
     name: "Pro",
-    price: "₹1,773.91",
+    price: "$19.99",
   },
 } as const;
 

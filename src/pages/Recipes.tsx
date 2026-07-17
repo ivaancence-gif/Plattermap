@@ -5,6 +5,8 @@ import { RecipeCard } from "@/components/RecipeCard";
 import { DietaryFilter } from "@/components/DietaryFilter";
 import { DietaryTag } from "@/data/recipes";
 import { useRecipes, getCategories } from "@/hooks/useRecipes";
+import { Footer } from "@/components/Footer";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Heart, User, LogOut, Crown, Sparkles, CalendarDays, Settings as SettingsIcon, ShoppingCart } from "lucide-react";
@@ -26,6 +28,8 @@ const Recipes = () => {
     searchParams.get("category")
   );
   const [selectedDietaryTags, setSelectedDietaryTags] = useState<DietaryTag[]>([]);
+
+  usePageTitle("Browse Recipes");
 
   const { recipes } = useRecipes();
   const categories = getCategories(recipes);
@@ -243,6 +247,7 @@ const Recipes = () => {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 };

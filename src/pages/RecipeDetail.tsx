@@ -1,5 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useRecipes } from "@/hooks/useRecipes";
+import { Footer } from "@/components/Footer";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +18,7 @@ const RecipeDetail = () => {
   const navigate = useNavigate();
   const { recipes: allRecipes } = useRecipes();
   const recipe = allRecipes.find((r) => r.id === id);
+  usePageTitle(recipe?.title);
 
   if (!recipe) {
     return (
@@ -56,6 +59,9 @@ const RecipeDetail = () => {
               <div className="flex flex-wrap gap-2">
                 <Badge variant="secondary">{recipe.category}</Badge>
                 <Badge variant="outline">{recipe.difficulty}</Badge>
+                {recipe.cuisine && (
+                  <Badge variant="outline">{recipe.cuisine} Cuisine</Badge>
+                )}
               </div>
               <div className="flex gap-2">
                 <AddToShoppingList
@@ -178,6 +184,7 @@ const RecipeDetail = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

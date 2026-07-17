@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useSubscription, TIERS } from "@/hooks/useSubscription";
@@ -24,6 +25,7 @@ import { ShoppingCart, Plus, Trash2, CheckCheck, X } from "lucide-react";
 
 const ShoppingList = () => {
   const navigate = useNavigate();
+  usePageTitle("Shopping List");
   const { user } = useAuth();
   const { productId, loading: subLoading } = useSubscription();
   const {

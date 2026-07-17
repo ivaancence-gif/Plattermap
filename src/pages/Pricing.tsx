@@ -3,7 +3,9 @@ import { useAuth } from "@/hooks/useAuth";
 import { useSubscription, TIERS } from "@/hooks/useSubscription";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Check, Crown, Sparkles } from "lucide-react";
+import { ArrowLeft, Check, Crown, Sparkles, UtensilsCrossed } from "lucide-react";
+import { Footer } from "@/components/Footer";
+import { usePageTitle } from "@/hooks/usePageTitle";
 
 const Pricing = () => {
   const navigate = useNavigate();
@@ -17,6 +19,8 @@ const Pricing = () => {
     }
     createCheckout(priceId);
   };
+
+  usePageTitle("Pricing");
 
   const isCurrentPlan = (tierProductId: string) => {
     return subscribed && productId === tierProductId;
@@ -49,7 +53,47 @@ const Pricing = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {/* Free Plan */}
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between mb-2">
+                <UtensilsCrossed className="w-8 h-8 text-primary" />
+              </div>
+              <CardTitle className="text-2xl">Free</CardTitle>
+              <CardDescription>Start cooking today</CardDescription>
+              <div className="mt-4">
+                <span className="text-4xl font-bold text-foreground">$0</span>
+                <span className="text-muted-foreground">/month</span>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span>Browse all recipes</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span>Search & category filters</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span>Full nutrition facts</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span>No account required</span>
+                </li>
+              </ul>
+            </CardContent>
+            <CardFooter>
+              <Button className="w-full" variant="outline" onClick={() => navigate("/recipes")}>
+                Start Browsing
+              </Button>
+            </CardFooter>
+          </Card>
+
           {/* Premium Plan */}
           <Card className={isCurrentPlan(TIERS.premium.product_id) ? "border-primary border-2" : ""}>
             <CardHeader>
@@ -111,7 +155,12 @@ const Pricing = () => {
           </Card>
 
           {/* Pro Plan */}
-          <Card className={isCurrentPlan(TIERS.pro.product_id) ? "border-primary border-2" : ""}>
+          <Card className={`relative ${isCurrentPlan(TIERS.pro.product_id) ? "border-primary border-2" : "border-primary/40 border-2"}`}>
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+              <span className="text-xs font-semibold bg-primary text-primary-foreground px-3 py-1 rounded-full whitespace-nowrap">
+                Most Popular
+              </span>
+            </div>
             <CardHeader>
               <div className="flex items-center justify-between mb-2">
                 <Sparkles className="w-8 h-8 text-primary" />
@@ -187,6 +236,7 @@ const Pricing = () => {
           </div>
         )}
       </main>
+      <Footer />
     </div>
   );
 };

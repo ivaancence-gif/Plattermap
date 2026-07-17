@@ -4,14 +4,15 @@ import { SearchBar } from "@/components/SearchBar";
 import { CategoryCard } from "@/components/CategoryCard";
 import { RecipeCard } from "@/components/RecipeCard";
 import { useRecipes, getCategories } from "@/hooks/useRecipes";
+import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { UtensilsCrossed, Cake, Coffee, Soup, Salad, Sun, Heart, User, LogOut, Crown, Sparkles, CalendarDays, ShoppingCart, Settings as SettingsIcon } from "lucide-react";
+import { UtensilsCrossed, Cake, CupSoda, Soup, Salad, Sun, Heart, User, LogOut, Crown, Sparkles, CalendarDays, ShoppingCart, Settings as SettingsIcon } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useSubscription, TIERS } from "@/hooks/useSubscription";
 import heroImage from "@/assets/hero-food.jpg";
 import categoryMeals from "@/assets/category-meals.jpg";
-import categorySalads from "@/assets/category-salads.jpg";
+import categorySalads from "@/assets/recipes/fresh-garden-salad.jpg";
 import categoryDesserts from "@/assets/category-desserts.jpg";
 import categoryDrinks from "@/assets/category-drinks.jpg";
 import categorySoups from "@/assets/category-soups.jpg";
@@ -22,7 +23,7 @@ import { ThemeToggle } from "@/components/ThemeToggle";
 const categoryIcons = {
   "Meals": UtensilsCrossed,
   "Desserts": Cake,
-  "Drinks": Coffee,
+  "Drinks": CupSoda,
   "Soups": Soup,
   "Salads": Salad,
   "Breakfast": Sun
@@ -241,6 +242,7 @@ const Index = () => {
           </div>
         )}
       </section>
+      <Footer />
     </div>
   );
 };

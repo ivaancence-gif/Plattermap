@@ -1,3 +1,4 @@
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useUserPreferences } from "@/hooks/useUserPreferences";
@@ -14,6 +15,7 @@ import { useEffect, useState } from "react";
 
 const Settings = () => {
   const navigate = useNavigate();
+  usePageTitle("Settings");
   const { user } = useAuth();
   const { preferences, updatePreferences, loading } = useUserPreferences();
   const { sendNotification } = useNotifications();

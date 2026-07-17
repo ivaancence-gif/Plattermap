@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -13,6 +14,7 @@ import { ChefHat } from "lucide-react";
 const Auth = () => {
   const { user, signUp, signIn, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
+  usePageTitle("Sign In");
   const [loading, setLoading] = useState(false);
 
   // Redirect if already logged in

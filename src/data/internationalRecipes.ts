@@ -245,7 +245,7 @@ export const internationalRecipes: Recipe[] = [
     cookTime: "30 min",
     servings: 4,
     difficulty: "Medium",
-    description: "Light and crispy battered vegetables and seafood.",
+    description: "Light and crispy battered vegetables and shrimp.",
     dietaryTags: [],
     ingredients: ["Shrimp", "Vegetables", "Tempura batter mix", "Ice water", "Oil for frying", "Tentsuyu dipping sauce"],
     instructions: [
@@ -454,7 +454,7 @@ export const internationalRecipes: Recipe[] = [
   {
     id: "119",
     title: "Hummus",
-    category: "Salads",
+    category: "Meals",
     cuisine: "Middle Eastern",
     image: recipeImageMap["119"],
     cookTime: "15 min",
@@ -525,7 +525,7 @@ export const internationalRecipes: Recipe[] = [
   {
     id: "122",
     title: "Kimchi",
-    category: "Salads",
+    category: "Meals",
     cuisine: "Korean",
     image: recipeImageMap["122"],
     cookTime: "30 min + ferment",

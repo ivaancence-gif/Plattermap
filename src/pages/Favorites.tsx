@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { usePageTitle } from "@/hooks/usePageTitle";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useFavorites } from "@/hooks/useFavorites";
@@ -15,6 +16,7 @@ const Favorites = () => {
   const { favorites, loading: favLoading } = useFavorites();
   const { subscribed, getTierName, productId } = useSubscription();
   const navigate = useNavigate();
+  usePageTitle("My Favorites");
 
   const isPremiumUser = subscribed && (
     productId === TIERS.premium.product_id || 
