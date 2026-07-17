@@ -29,3 +29,8 @@ Recipe discovery app (web + Android) conceptualized by a 7-year-old founder, ori
 3. Mobile UX: bottom tab navigation, touch targets, USD pricing, app icons/splash
 4. Signed release AAB + Play Console listing (needs privacy policy page on plattermap.app)
 5. Launch + Plus tier via Play Billing
+
+## Deploy gotchas
+- The Vercel project is git-connected: **push to main = production deploy**. Avoid `vercel --prod` unless needed.
+- Vercel blocks deployments if the git commit author email doesn't match the GitHub account. This repo's git config sets `236033305+ivaancence-gif@users.noreply.github.com` — don't commit with a different author.
+- support@plattermap.app is a live Hostinger Business Email mailbox (webmail: mail.hostinger.com; MX/SPF/DKIM verified July 2026).
