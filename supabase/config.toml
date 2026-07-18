@@ -1,4 +1,10 @@
-project_id = "ohetssiqfzafipmkfmfj"
+project_id = "wggdvvdlhoqzpxxlhcgn"
+
+[functions.generate-recipe]
+verify_jwt = true
+
+[functions.health-facts]
+verify_jwt = true
 
 [functions.create-checkout]
 verify_jwt = true
