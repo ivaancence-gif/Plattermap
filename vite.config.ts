@@ -20,7 +20,7 @@ export default defineConfig(({ mode }) => ({
         name: "PlatterMap",
         short_name: "PlatterMap",
         description: "Discover delicious recipes from around the world",
-        theme_color: "#16a34a",
+        theme_color: "#d76742",
         background_color: "#ffffff",
         display: "standalone",
         start_url: "/",

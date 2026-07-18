@@ -11,8 +11,8 @@ interface RecipeCardProps {
 
 export const RecipeCard = ({ recipe }: RecipeCardProps) => {
   return (
-    <Link to={`/recipe/${recipe.id}`}>
-      <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 cursor-pointer border-border/50">
+    <Link to={`/recipe/${recipe.id}`} className="block h-full">
+      <Card className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 cursor-pointer border-border/50">
         <div className="aspect-square overflow-hidden bg-muted">
           <img
             src={recipe.image}
@@ -20,7 +20,7 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
             className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
           />
         </div>
-        <CardContent className="p-4">
+        <CardContent className="p-4 flex flex-col flex-1">
           <div className="flex items-center justify-between mb-2">
             <div className="flex gap-2">
               <Badge variant="secondary" className="bg-secondary/50">
@@ -61,7 +61,7 @@ export const RecipeCard = ({ recipe }: RecipeCardProps) => {
               ))}
             </div>
           )}
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
+          <div className="mt-auto flex items-center gap-4 text-sm text-muted-foreground">
             <div className="flex items-center gap-1">
               <Clock className="w-4 h-4" />
               <span>{recipe.cookTime}</span>
