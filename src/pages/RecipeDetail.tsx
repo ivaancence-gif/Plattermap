@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useRecipes } from "@/hooks/useRecipes";
 import { Footer } from "@/components/Footer";
 import { usePageTitle } from "@/hooks/usePageTitle";
+import { useRecipeJsonLd } from "@/hooks/useRecipeJsonLd";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +20,7 @@ const RecipeDetail = () => {
   const { recipes: allRecipes } = useRecipes();
   const recipe = allRecipes.find((r) => r.id === id);
   usePageTitle(recipe?.title);
+  useRecipeJsonLd(recipe);
 
   if (!recipe) {
     return (
