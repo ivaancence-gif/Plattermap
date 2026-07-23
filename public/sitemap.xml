@@ -5,6 +5,7 @@
   <url><loc>https://plattermap.app/pricing</loc><priority>0.8</priority></url>
   <url><loc>https://plattermap.app/privacy</loc><priority>0.8</priority></url>
   <url><loc>https://plattermap.app/terms</loc><priority>0.8</priority></url>
+  <url><loc>https://plattermap.app/blog</loc><priority>0.8</priority></url>
   <url><loc>https://plattermap.app/recipe/1</loc><priority>0.6</priority></url>
   <url><loc>https://plattermap.app/recipe/7</loc><priority>0.6</priority></url>
   <url><loc>https://plattermap.app/recipe/8</loc><priority>0.6</priority></url>
@@ -68,4 +69,6 @@
   <url><loc>https://plattermap.app/recipe/125</loc><priority>0.6</priority></url>
   <url><loc>https://plattermap.app/recipe/126</loc><priority>0.6</priority></url>
   <url><loc>https://plattermap.app/recipe/127</loc><priority>0.6</priority></url>
+  <url><loc>https://plattermap.app/blog/meal-planning-for-busy-families</loc><priority>0.7</priority></url>
+  <url><loc>https://plattermap.app/blog/recipes-kids-can-help-cook</loc><priority>0.7</priority></url>
 </urlset>

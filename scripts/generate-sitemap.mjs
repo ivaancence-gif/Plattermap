@@ -32,10 +32,22 @@ const result = await build({
 await import(`data:text/javascript;base64,${Buffer.from(result.outputFiles[0].text).toString("base64")}`);
 const recipes = globalThis.__RECIPES__;
 
-const staticPaths = ["/", "/recipes", "/pricing", "/privacy", "/terms"];
+const staticPaths = ["/", "/recipes", "/pricing", "/privacy", "/terms", "/blog"];
+
+// Blog posts: read slugs from markdown files (skip published: false drafts)
+const blogDir = path.join(root, "src", "content", "blog");
+const blogSlugs = fs.existsSync(blogDir)
+  ? fs
+      .readdirSync(blogDir)
+      .filter((f) => f.endsWith(".md"))
+      .filter((f) => !fs.readFileSync(path.join(blogDir, f), "utf8").includes("published: false"))
+      .map((f) => f.replace(/\.md$/, ""))
+  : [];
+
 const urls = [
   ...staticPaths.map((p) => ({ loc: `${SITE}${p}`, priority: p === "/" ? "1.0" : "0.8" })),
   ...recipes.map((r) => ({ loc: `${SITE}/recipe/${r.id}`, priority: "0.6" })),
+  ...blogSlugs.map((s) => ({ loc: `${SITE}/blog/${s}`, priority: "0.7" })),
 ];
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
