@@ -12,6 +12,7 @@ import { FavoriteButton } from "@/components/FavoriteButton";
 import { RecipeNotes } from "@/components/RecipeNotes";
 import { AddToMealPlan } from "@/components/AddToMealPlan";
 import { AddToShoppingList } from "@/components/AddToShoppingList";
+import { RecipePdfButtons } from "@/components/RecipePdfButtons";
 import { HealthFactsCard } from "@/components/HealthFactsCard";
 
 const RecipeDetail = () => {
@@ -90,6 +91,9 @@ const RecipeDetail = () => {
                 <ChefHat className="w-5 h-5 text-primary" />
                 <span className="text-foreground">{recipe.difficulty} difficulty</span>
               </div>
+            </div>
+            <div className="mt-6">
+              <RecipePdfButtons recipe={recipe} />
             </div>
           </CardContent>
         </Card>

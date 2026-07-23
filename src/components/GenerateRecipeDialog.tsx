@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Sparkles, Loader2, Clock, Users, ChefHat } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { RecipePdfButtons } from "@/components/RecipePdfButtons";
 
 interface GeneratedRecipe {
   title: string;
@@ -84,9 +85,12 @@ export const GenerateRecipeDialog = () => {
 
           {recipe && (
             <div className="space-y-4 pt-4 border-t">
-              <div>
-                <h3 className="text-2xl font-bold text-foreground">{recipe.title}</h3>
-                <p className="text-muted-foreground mt-1">{recipe.description}</p>
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <h3 className="text-2xl font-bold text-foreground">{recipe.title}</h3>
+                  <p className="text-muted-foreground mt-1">{recipe.description}</p>
+                </div>
+                <RecipePdfButtons recipe={recipe} size="sm" />
               </div>
               <div className="flex flex-wrap gap-4 text-sm">
                 <span className="flex items-center gap-1"><Clock className="w-4 h-4 text-primary" />{recipe.cookTime}</span>
