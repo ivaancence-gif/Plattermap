@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 .vercel
 .env*
+
+# Local Claude Code tooling (dev preview config)
+.claude/

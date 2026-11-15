@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, Loader2, Clock, Users, ChefHat } from "lucide-react";
+import { Sparkles, Loader2, Clock, Users, ChefHat, LogIn } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { useAuth } from "@/hooks/useAuth";
 import { RecipePdfButtons } from "@/components/RecipePdfButtons";
 
 interface GeneratedRecipe {
@@ -24,6 +26,8 @@ export const GenerateRecipeDialog = () => {
   const [prompt, setPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [recipe, setRecipe] = useState<GeneratedRecipe | null>(null);
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleGenerate = async () => {
     if (!prompt.trim()) {
@@ -64,24 +68,37 @@ export const GenerateRecipeDialog = () => {
         </DialogHeader>
 
         <div className="space-y-4">
-          <Textarea
-            placeholder="e.g. A high-protein vegetarian dinner with chickpeas and spinach"
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-            rows={3}
-            disabled={loading}
-          />
-          <Button onClick={handleGenerate} disabled={loading} className="w-full gap-2">
-            {loading ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin" /> Generating...
-              </>
-            ) : (
-              <>
-                <Sparkles className="w-4 h-4" /> Generate
-              </>
-            )}
-          </Button>
+          {!user ? (
+            <div className="rounded-lg border border-border bg-muted/40 p-6 text-center space-y-3">
+              <p className="text-sm text-muted-foreground">
+                Sign in to generate custom recipes with AI — it's free.
+              </p>
+              <Button onClick={() => { setOpen(false); navigate("/auth"); }} className="gap-2">
+                <LogIn className="w-4 h-4" /> Sign in to generate
+              </Button>
+            </div>
+          ) : (
+            <>
+              <Textarea
+                placeholder="e.g. A high-protein vegetarian dinner with chickpeas and spinach"
+                value={prompt}
+                onChange={(e) => setPrompt(e.target.value)}
+                rows={3}
+                disabled={loading}
+              />
+              <Button onClick={handleGenerate} disabled={loading} className="w-full gap-2">
+                {loading ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" /> Generating...
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4" /> Generate
+                  </>
+                )}
+              </Button>
+            </>
+          )}
 
           {recipe && (
             <div className="space-y-4 pt-4 border-t">
