@@ -4,6 +4,7 @@ import { SearchBar } from "@/components/SearchBar";
 import { CategoryCard } from "@/components/CategoryCard";
 import { RecipeCard } from "@/components/RecipeCard";
 import { useRecipes, getCategories } from "@/hooks/useRecipes";
+import { matchesSearch } from "@/lib/recipeFilters";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -49,14 +50,15 @@ const Index = () => {
   const { recipes } = useRecipes();
   const categories = getCategories(recipes);
 
-  const filteredRecipes = recipes.filter(recipe =>
-    recipe.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    recipe.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    recipe.description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredRecipes = recipes.filter((recipe) => matchesSearch(recipe, searchQuery));
 
   const handleCategoryClick = (categoryName: string) => {
     navigate(`/recipes?category=${categoryName}`);
+  };
+
+  const goToSearch = (query: string) => {
+    const q = query.trim();
+    navigate(q ? `/recipes?q=${encodeURIComponent(q)}` : "/recipes");
   };
 
   return (
@@ -184,14 +186,15 @@ const Index = () => {
             <SearchBar
               value={searchQuery}
               onChange={setSearchQuery}
-              placeholder="Search for any recipe..."
+              onSubmit={goToSearch}
+              placeholder="Search by name, ingredient, or cuisine…"
             />
             <Button
               size="lg"
-              onClick={() => navigate('/recipes')}
+              onClick={() => goToSearch(searchQuery)}
               className="bg-primary hover:bg-primary/90"
             >
-              Browse All Recipes
+              {searchQuery.trim() ? "Search Recipes" : "Browse All Recipes"}
             </Button>
           </div>
         </div>
