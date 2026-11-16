@@ -25,10 +25,10 @@ const fetchWithTimeout = async (url: string, opts: RequestInit, ms: number) => {
 
 const UPSTREAM_TIMEOUT_MS = 18000;
 
-// Models tried in order. If one is overloaded (503 UNAVAILABLE) or stalls,
-// fall back to the next — so a single overloaded model doesn't take the
-// feature down. Primary is a stable GA model with broad capacity.
-const MODELS = ["gemini-2.0-flash", "gemini-flash-latest", "gemini-2.5-flash"];
+// Models tried in order. If one is overloaded, quota-limited, or stalls,
+// fall back to the next — so a single busy/retired model doesn't take the
+// feature down. Different models have separate quota buckets.
+const MODELS = ["gemini-3.8-flash", "gemini-flash-latest"];
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
