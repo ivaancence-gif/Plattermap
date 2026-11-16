@@ -23,10 +23,12 @@ const fetchWithTimeout = async (url: string, opts: RequestInit, ms: number) => {
   }
 };
 
-const UPSTREAM_TIMEOUT_MS = 20000;
+const UPSTREAM_TIMEOUT_MS = 18000;
 
-// Transient upstream failures that are worth retrying.
-const RETRYABLE = new Set([408, 429, 500, 502, 503, 504]);
+// Models tried in order. If one is overloaded (503 UNAVAILABLE) or stalls,
+// fall back to the next — so a single overloaded model doesn't take the
+// feature down. Primary is a stable GA model with broad capacity.
+const MODELS = ["gemini-2.0-flash", "gemini-flash-latest", "gemini-2.5-flash"];
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
@@ -39,7 +41,6 @@ Deno.serve(async (req) => {
     if (!GEMINI_API_KEY) throw new Error("GEMINI_API_KEY not configured");
 
     const payload = {
-      model: "gemini-flash-latest",
       messages: [
         {
           role: "system",
@@ -74,13 +75,12 @@ Deno.serve(async (req) => {
       tool_choice: { type: "function", function: { name: "return_health_facts" } },
     };
 
-    // Retry the upstream call on transient errors / network blips with backoff.
-    const MAX_ATTEMPTS = 3;
+    // Try each model in turn. A stall (timeout abort), network blip, or a
+    // transient/overload status on one model falls back to the next.
     let response: Response | null = null;
     let lastStatus = 0;
-    let lastBody = "";
 
-    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    for (const model of MODELS) {
       try {
         response = await fetchWithTimeout(
           "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
@@ -90,47 +90,42 @@ Deno.serve(async (req) => {
               Authorization: `Bearer ${GEMINI_API_KEY}`,
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(payload),
+            body: JSON.stringify({ model, ...payload }),
           },
           UPSTREAM_TIMEOUT_MS
         );
       } catch (netErr) {
-        // Network-level failure — treat as retryable.
+        // Stall/timeout abort or network failure — fall back to the next model.
         lastStatus = 0;
-        lastBody = netErr instanceof Error ? netErr.message : String(netErr);
-        console.error(`health-facts fetch failed (attempt ${attempt}):`, lastBody);
-        if (attempt < MAX_ATTEMPTS) {
-          await sleep(400 * attempt);
-          continue;
-        }
-        return json({ error: "Couldn't reach the AI service. Please try again." }, 503);
+        console.error(
+          `health-facts fetch failed (${model}):`,
+          netErr instanceof Error ? netErr.message : String(netErr)
+        );
+        await sleep(300);
+        continue;
       }
 
       if (response.ok) break;
 
       lastStatus = response.status;
-      lastBody = await response.text();
-      console.error(`AI gateway error (attempt ${attempt}):`, lastStatus, lastBody);
+      const body = await response.text();
+      console.error(`AI gateway error (${model}):`, lastStatus, body);
 
-      // Payment / quota is not transient — fail fast with a clear message.
+      // Payment / quota is key-wide and not transient — fail fast.
       if (lastStatus === 402) {
         return json({ error: "AI quota exhausted. Try again later." }, 402);
       }
 
-      if (RETRYABLE.has(lastStatus) && attempt < MAX_ATTEMPTS) {
-        await sleep(400 * attempt); // 400ms, 800ms backoff
-        continue;
-      }
-
-      // Out of retries (or a non-retryable 4xx).
-      if (lastStatus === 429) {
-        return json({ error: "The AI is busy right now. Please try again in a moment." }, 429);
-      }
-      return json({ error: "The AI service is temporarily unavailable. Please try again." }, 502);
+      // Overloaded (503), rate-limited (429), other 5xx, or a bad model id —
+      // fall back to the next model.
+      await sleep(300);
     }
 
     if (!response || !response.ok) {
-      return json({ error: "The AI service is temporarily unavailable. Please try again." }, 502);
+      if (lastStatus === 429) {
+        return json({ error: "The AI is busy right now. Please try again in a moment." }, 429);
+      }
+      return json({ error: "The AI service is temporarily unavailable. Please try again." }, 503);
     }
 
     const data = await response.json();
