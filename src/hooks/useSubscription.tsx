@@ -58,12 +58,13 @@ export const SubscriptionProvider = ({ children }: { children: ReactNode }) => {
       setProductId(data.product_id || null);
       setSubscriptionEnd(data.subscription_end || null);
     } catch (error: any) {
+      // The subscription backend (Stripe) isn't set up during the free launch,
+      // so this check is expected to fail. Degrade gracefully to "not
+      // subscribed" instead of showing users a destructive error.
       console.error("Error checking subscription:", error);
-      toast({
-        title: "Error",
-        description: "Failed to check subscription status",
-        variant: "destructive",
-      });
+      setSubscribed(false);
+      setProductId(null);
+      setSubscriptionEnd(null);
     } finally {
       setLoading(false);
     }
