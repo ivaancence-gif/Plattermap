@@ -58,7 +58,7 @@ const RecipeDetail = () => {
         {/* Recipe Header */}
         <Card className="mb-8">
           <CardContent className="pt-6">
-            <div className="flex items-start justify-between mb-4">
+            <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
               <div className="flex flex-wrap gap-2">
                 <Badge variant="secondary">{recipe.category}</Badge>
                 <Badge variant="outline">{recipe.difficulty}</Badge>
@@ -66,7 +66,7 @@ const RecipeDetail = () => {
                   <Badge variant="outline">{recipe.cuisine} Cuisine</Badge>
                 )}
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <AddToShoppingList
                   ingredients={recipe.ingredients}
                   recipeId={recipe.id}
