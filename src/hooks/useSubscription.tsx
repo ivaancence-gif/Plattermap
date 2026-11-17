@@ -32,6 +32,11 @@ interface SubscriptionContextType {
 
 const SubscriptionContext = createContext<SubscriptionContextType | undefined>(undefined);
 
+// Flip to true once the Stripe `check-subscription` edge function is deployed.
+// During the free launch it isn't, so we skip the call entirely and treat
+// everyone as not subscribed — no failed network requests, no console spam.
+const SUBSCRIPTIONS_ENABLED = false;
+
 export const SubscriptionProvider = ({ children }: { children: ReactNode }) => {
   const { user } = useAuth();
   const [subscribed, setSubscribed] = useState(false);
@@ -40,7 +45,7 @@ export const SubscriptionProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   const checkSubscription = async () => {
-    if (!user) {
+    if (!user || !SUBSCRIPTIONS_ENABLED) {
       setSubscribed(false);
       setProductId(null);
       setSubscriptionEnd(null);
@@ -138,7 +143,8 @@ export const SubscriptionProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     checkSubscription();
 
-    // Auto-refresh every minute
+    // Only poll for subscription changes when subscriptions are enabled.
+    if (!SUBSCRIPTIONS_ENABLED) return;
     const interval = setInterval(checkSubscription, 60000);
     return () => clearInterval(interval);
   }, [user]);
