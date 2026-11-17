@@ -103,9 +103,9 @@ export const GenerateRecipeDialog = () => {
           {recipe && (
             <div className="space-y-4 pt-4 border-t">
               <div className="flex flex-wrap items-start justify-between gap-3">
-                <div>
-                  <h3 className="text-2xl font-bold text-foreground">{recipe.title}</h3>
-                  <p className="text-muted-foreground mt-1">{recipe.description}</p>
+                <div className="min-w-0 flex-1">
+                  <h3 className="text-2xl font-bold text-foreground break-words">{recipe.title}</h3>
+                  <p className="text-muted-foreground mt-1 break-words">{recipe.description}</p>
                 </div>
                 <RecipePdfButtons recipe={recipe} size="sm" />
               </div>
