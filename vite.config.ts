@@ -47,7 +47,9 @@ export default defineConfig(({ mode }) => ({
         globPatterns: ["**/*.{js,css,html,ico,png,svg,jpg,webp}"],
         runtimeCaching: [
           {
-            urlPattern: /^https:\/\/.*\.supabase\.co\/.*/i,
+            // Never cache auth endpoints — a stale /auth/v1 response can make a
+            // relaunched PWA think the session is gone.
+            urlPattern: /^https:\/\/[^/]+\.supabase\.co\/(?!auth\/).*/i,
             handler: "NetworkFirst",
             options: {
               cacheName: "supabase-cache",
